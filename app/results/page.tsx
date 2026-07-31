@@ -70,16 +70,55 @@ export default function ResultsPage() {
             </div>
             <div className="university-list">
               {universities.map((university, index) => (
-                <article key={university.name}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <div>
-                    <h3>{university.name}</h3>
-                    <p>{university.detail}</p>
+                <article className="university-card" key={university.name}>
+                  <div className="university-card-media">
+                    <img
+                      src={university.image}
+                      alt={university.imageAlt}
+                      width="1600"
+                      height="1000"
+                      loading={index === 0 ? "eager" : "lazy"}
+                      fetchPriority={index === 0 ? "high" : undefined}
+                      style={{ objectPosition: university.imagePosition }}
+                    />
+                    <span aria-hidden="true" />
                   </div>
-                  <strong>{university.offer}</strong>
+                  <div className="university-card-content">
+                    <div className="university-card-meta">
+                      <span>{String(index + 1).padStart(2, "0")}</span>
+                      <p>2023 PERSONAL OFFER</p>
+                    </div>
+                    <div className="university-card-copy">
+                      <p>{university.detail}</p>
+                    <h3>{university.name}</h3>
+                      <strong>{university.offer}</strong>
+                      <small>
+                        Photo:{" "}
+                        <a
+                          href={university.photoSource}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {university.photoAuthor}
+                        </a>
+                        {" / "}
+                        <a
+                          href={university.photoLicenseUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {university.photoLicense}
+                        </a>
+                      </small>
+                    </div>
+                  </div>
                 </article>
               ))}
             </div>
+            <p className="university-photo-note">
+              Campus photography via Wikimedia Commons. 写真は表示上のトリミングと
+              色調処理を行っています。
+            </p>
             <p className="result-disclaimer">
               ※ 上記は米山陸本人が2023年に受け取った合格・奨学金オファーです。
               指導を受けた方の合格や奨学金獲得を保証するものではありません。

@@ -83,6 +83,26 @@ test("plans page renders the supplied pricing and course details", async () => {
   assert.match(html, /チャット相談（回数制限なし/);
 });
 
+test("results page renders real campus photography with attribution", async () => {
+  const response = await render("/results");
+  const html = await response.text();
+
+  for (const image of [
+    "/universities/melbourne.jpg",
+    "/universities/auckland.jpg",
+    "/universities/wellington.jpg",
+    "/universities/adelaide.jpg",
+    "/universities/massey.jpg",
+  ]) {
+    assert.ok(html.includes(image));
+  }
+
+  assert.match(html, /Campus photography via Wikimedia Commons/);
+  assert.match(html, /CC BY-SA 2\.0/);
+  assert.match(html, /CC BY-SA 4\.0/);
+  assert.match(html, /CC BY 2\.0/);
+});
+
 test("contact page exposes working contact links", async () => {
   const response = await render("/contact");
   const html = await response.text();
