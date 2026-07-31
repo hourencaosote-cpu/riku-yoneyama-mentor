@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactBand, SiteFooter, SiteHeader } from "./_components/SiteChrome";
+import { SiteIntro } from "./_components/SiteIntro";
 import { concerns, plans } from "./_data/site";
 
 export const metadata: Metadata = {
@@ -38,6 +39,13 @@ const paths = [
 export default function Home() {
   return (
     <>
+      <SiteIntro
+        number="01"
+        section="WELCOME"
+        quote="日本から世界へ、選択肢を無限大に。"
+        detail="NCEA・海外大学進学・留学生活を、一つの道筋に。"
+        tone="sky"
+      />
       <SiteHeader current="/" />
       <main>
         <section className="home-hero" aria-labelledby="hero-title">

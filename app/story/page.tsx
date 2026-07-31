@@ -5,6 +5,7 @@ import {
   SiteFooter,
   SiteHeader,
 } from "../_components/SiteChrome";
+import { SiteIntro } from "../_components/SiteIntro";
 
 export const metadata: Metadata = {
   title: "本人の経験",
@@ -36,6 +37,13 @@ const story = [
 export default function StoryPage() {
   return (
     <>
+      <SiteIntro
+        number="04"
+        section="MY STORY"
+        quote="遠回りした経験は、誰かの最短ルートになる。"
+        detail="行き詰まりから学び方を組み直した、本人の原点。"
+        tone="indigo"
+      />
       <SiteHeader current="/story" />
       <main>
         <PageHero

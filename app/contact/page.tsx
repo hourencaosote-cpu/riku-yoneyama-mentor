@@ -4,6 +4,7 @@ import {
   SiteFooter,
   SiteHeader,
 } from "../_components/SiteChrome";
+import { SiteIntro } from "../_components/SiteIntro";
 import { faqs, steps } from "../_data/site";
 
 export const metadata: Metadata = {
@@ -15,6 +16,13 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
+      <SiteIntro
+        number="06"
+        section="HOW TO START"
+        quote="最初の一歩は、悩みを言葉にすることから。"
+        detail="相談、個別設計、体験、開始。納得しながら進める四段階。"
+        tone="sand"
+      />
       <SiteHeader current="/contact" />
       <main>
         <PageHero

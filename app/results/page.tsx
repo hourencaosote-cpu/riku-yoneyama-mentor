@@ -5,6 +5,7 @@ import {
   SiteFooter,
   SiteHeader,
 } from "../_components/SiteChrome";
+import { SiteIntro } from "../_components/SiteIntro";
 import { universities } from "../_data/site";
 
 export const metadata: Metadata = {
@@ -16,6 +17,13 @@ export const metadata: Metadata = {
 export default function ResultsPage() {
   return (
     <>
+      <SiteIntro
+        number="05"
+        section="PERSONAL RESULTS"
+        quote="才能ではなく、再現できる戦略で前へ。"
+        detail="5大学への合格と奨学金オファーを、本人の経験として。"
+        tone="teal"
+      />
       <SiteHeader current="/results" />
       <main>
         <PageHero

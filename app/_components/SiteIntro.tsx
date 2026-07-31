@@ -5,7 +5,21 @@ import { BrandMark } from "./BrandMark";
 
 type IntroPhase = "visible" | "leaving" | "hidden";
 
-export function SiteIntro() {
+type SiteIntroProps = {
+  number: string;
+  section: string;
+  quote: string;
+  detail: string;
+  tone: "sky" | "gold" | "coral" | "indigo" | "teal" | "sand";
+};
+
+export function SiteIntro({
+  number,
+  section,
+  quote,
+  detail,
+  tone,
+}: SiteIntroProps) {
   const [phase, setPhase] = useState<IntroPhase>("visible");
 
   useEffect(() => {
@@ -13,32 +27,17 @@ export function SiteIntro() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    try {
-      if (window.sessionStorage.getItem("riku-intro-seen") === "true") {
-        document.documentElement.classList.add("intro-seen");
-        const alreadySeenTimer = window.setTimeout(
-          () => setPhase("hidden"),
-          0,
-        );
-        return () => window.clearTimeout(alreadySeenTimer);
-      }
-      window.sessionStorage.setItem("riku-intro-seen", "true");
-    } catch {
-      // The introduction still works when storage is unavailable.
-    }
-
     document.body.classList.add("intro-active");
     const leaveTimer = window.setTimeout(
       () => setPhase("leaving"),
-      reducedMotion ? 80 : 2150,
+      reducedMotion ? 60 : 1650,
     );
     const hideTimer = window.setTimeout(
       () => {
         setPhase("hidden");
-        document.documentElement.classList.add("intro-seen");
         document.body.classList.remove("intro-active");
       },
-      reducedMotion ? 160 : 2850,
+      reducedMotion ? 140 : 2350,
     );
 
     return () => {
@@ -52,9 +51,8 @@ export function SiteIntro() {
     setPhase("leaving");
     window.setTimeout(() => {
       setPhase("hidden");
-      document.documentElement.classList.add("intro-seen");
       document.body.classList.remove("intro-active");
-    }, 500);
+    }, 480);
   };
 
   if (phase === "hidden") {
@@ -63,24 +61,31 @@ export function SiteIntro() {
 
   return (
     <div
-      className={`site-intro${phase === "leaving" ? " site-intro-leaving" : ""}`}
-      aria-label="サイト紹介"
+      className={`site-intro site-intro-${tone}${phase === "leaving" ? " site-intro-leaving" : ""}`}
+      aria-label={`${section}ページの紹介`}
     >
-      <div className="intro-orbit" aria-hidden="true" />
-      <div className="intro-content">
-        <BrandMark size="large" inverse />
-        <p className="intro-kicker">RIKU YONEYAMA</p>
-        <p className="intro-catchcopy">
-          日本から世界へ、
-          <br />
-          選択肢を無限大に。
-        </p>
-        <p className="intro-subline">
-          NCEA <span>/</span> ATAR <span>/</span> INTERNATIONAL PATHWAYS
-        </p>
+      <div className="intro-atmosphere" aria-hidden="true" />
+      <div className="intro-grid">
+        <div className="intro-brand-panel">
+          <BrandMark size="display" inverse />
+          <div className="intro-brand-copy">
+            <strong>RIKU YONEYAMA</strong>
+            <span>EDUCATION PATHWAYS</span>
+          </div>
+        </div>
+        <span className="intro-divider" aria-hidden="true" />
+        <div className="intro-message">
+          <p className="intro-section">
+            <span>{number}</span>
+            {section}
+          </p>
+          <p className="intro-catchcopy">{quote}</p>
+          <p className="intro-detail">{detail}</p>
+        </div>
       </div>
       <button type="button" className="intro-skip" onClick={skip}>
-        Skip
+        本文を見る
+        <span aria-hidden="true">↘</span>
       </button>
     </div>
   );

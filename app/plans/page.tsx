@@ -5,6 +5,7 @@ import {
   SiteFooter,
   SiteHeader,
 } from "../_components/SiteChrome";
+import { SiteIntro } from "../_components/SiteIntro";
 import { plans, studentVoices } from "../_data/site";
 
 export const metadata: Metadata = {
@@ -44,6 +45,13 @@ const comparison = [
 export default function PlansPage() {
   return (
     <>
+      <SiteIntro
+        number="03"
+        section="PLANS & PRICING"
+        quote="学び方が変われば、結果までの距離は変えられる。"
+        detail="必要な伴走の深さに合わせて、二つの選択肢から。"
+        tone="coral"
+      />
       <SiteHeader current="/plans" />
       <main>
         <PageHero

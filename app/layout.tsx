@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { MotionRuntime } from "./_components/MotionRuntime";
-import { SiteIntro } from "./_components/SiteIntro";
 import "./globals.css";
 
 const siteName = "米山 陸｜NCEA・海外大学進学 個別サポート";
@@ -67,17 +66,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              'try{if(sessionStorage.getItem("riku-intro-seen")==="true"){document.documentElement.classList.add("intro-seen")}}catch{}',
-          }}
-        />
-      </head>
+    <html lang="ja">
       <body>
-        <SiteIntro />
         <MotionRuntime />
         {children}
       </body>
