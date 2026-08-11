@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ContactBand, SiteFooter, SiteHeader } from "./_components/SiteChrome";
 import { SiteIntro } from "./_components/SiteIntro";
-import { concerns, plans } from "./_data/site";
+import { concerns, plans, subjectAreas } from "./_data/site";
 
 export const metadata: Metadata = {
   title: "トップ",
@@ -55,9 +55,12 @@ export default function Home() {
                 NCEA &amp; INTERNATIONAL UNIVERSITY MENTOR
               </p>
               <h1 id="hero-title">
-                つまずいた経験があるから、
-                <br />
-                <em>進める道筋</em>を一緒につくれる。
+                <span className="hero-line">つまずいた経験から、</span>
+                <br className="hero-break" />
+                <span className="hero-line">
+                  <em>進める道筋</em>を、
+                </span>
+                <span className="hero-mobile-tail">一緒に。</span>
               </h1>
               <p className="hero-lead">
                 NCEA学習、海外大学進学、留学生活を別々に考えず、
@@ -74,7 +77,8 @@ export default function Home() {
                 </a>
               </div>
               <p className="hero-note">
-                オンライン個別サポート / 日本語対応 / 初回相談 約30分
+                オンライン個別サポート / 日本語対応 / {" "}
+                <span>初回相談 約30分</span>
               </p>
             </div>
 
@@ -97,6 +101,37 @@ export default function Home() {
                 <a href="/story">プロフィールを見る →</a>
               </div>
             </aside>
+          </div>
+        </section>
+
+        <section className="subject-overview" aria-labelledby="subjects-title">
+          <div className="section-shell">
+            <div className="subject-overview-head">
+              <div>
+                <p className="eyebrow">SUBJECTS AT A GLANCE</p>
+                <h2 id="subjects-title">対応科目を、ひと目で。</h2>
+              </div>
+              <p>
+                1科目だけでも、複数科目と進路相談を組み合わせても大丈夫です。
+                現在地と目標に合わせて、必要な内容を一緒に組み立てます。
+              </p>
+            </div>
+            <div className="subject-overview-grid">
+              {subjectAreas.map((area) => (
+                <article key={area.category}>
+                  <span>{area.category}</span>
+                  <h3>{area.title}</h3>
+                  <p>{area.subjects.join(" / ")}</p>
+                </article>
+              ))}
+            </div>
+            <div className="subject-overview-footer">
+              <p>学年・Level・課題内容は、初回相談で確認します。</p>
+              <a className="text-link" href="/support#program-examples">
+                科目の組み合わせ例を見る
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </div>
         </section>
 
@@ -127,7 +162,7 @@ export default function Home() {
               <p className="eyebrow">START FROM HERE</p>
               <h2 id="concerns-title">
                 「何をすればいいか分からない」
-                <br />
+                <br className="display-break" />
                 その状態から始められます。
               </h2>
               <p>
@@ -181,7 +216,7 @@ export default function Home() {
             <div>
               <h2>
                 頑張り方ではなく、
-                <br />
+                <br className="display-break" />
                 学び続けられる仕組みを変えた。
               </h2>
               <p>
@@ -203,7 +238,7 @@ export default function Home() {
               <p className="eyebrow">PERSONAL RESULTS</p>
               <h2 id="result-preview-title">
                 実績は、約束ではなく
-                <br />
+                <br className="display-break" />
                 経験の根拠として。
               </h2>
             </div>
@@ -232,7 +267,7 @@ export default function Home() {
               <p className="eyebrow light">PLANS &amp; PRICING</p>
               <h2 id="home-plans-title">
                 伴走の深さに合わせた、
-                <br />
+                <br className="display-break" />
                 2つの月額プラン。
               </h2>
               <a className="button button-outline-light" href="/plans">

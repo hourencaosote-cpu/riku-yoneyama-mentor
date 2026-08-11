@@ -32,7 +32,7 @@ export default function ResultsPage() {
           title={
             <>
               数字を大きく見せるより、
-              <br />
+              <br className="display-break" />
               <em>何の実績か</em>を明確に。
             </>
           }
@@ -133,7 +133,7 @@ export default function ResultsPage() {
               <p className="eyebrow light">FROM RESULT TO SUPPORT</p>
               <h2 id="experience-title">
                 結果そのものより、
-                <br />
+                <br className="display-break" />
                 そこまでの判断を共有する。
               </h2>
             </div>

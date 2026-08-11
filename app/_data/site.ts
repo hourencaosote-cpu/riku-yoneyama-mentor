@@ -98,6 +98,50 @@ export const supportAreas = [
   },
 ];
 
+export const subjectAreas = [
+  {
+    category: "MATH",
+    title: "数学",
+    subjects: ["Algebra", "Calculus"],
+  },
+  {
+    category: "BUSINESS",
+    title: "ビジネス",
+    subjects: ["Accounting"],
+  },
+  {
+    category: "LANGUAGE & HUMANITIES",
+    title: "英語・人文",
+    subjects: ["English", "ESOL", "History"],
+  },
+  {
+    category: "SCIENCE",
+    title: "理科",
+    subjects: ["Chemistry・Biology Level 1"],
+  },
+];
+
+export const programExamples = [
+  {
+    number: "01",
+    title: "数学科目 + 学習計画",
+    subjects: "Algebra / Calculus",
+    text: "評価基準を確認し、課題・テストに向けた週ごとの学習計画まで一緒に整理します。",
+  },
+  {
+    number: "02",
+    title: "英語・人文 + 課題レビュー",
+    subjects: "English / ESOL / History",
+    text: "文章の構成や読解の進め方を確認し、提出物の振り返りと次の改善につなげます。",
+  },
+  {
+    number: "03",
+    title: "科目サポート + 進路設計",
+    subjects: "NCEA Subjects / University Planning",
+    text: "今の科目選択と成績を、大学・専攻・奨学金の検討まで一つの道筋として考えます。",
+  },
+];
+
 export const methods = [
   {
     number: "01",

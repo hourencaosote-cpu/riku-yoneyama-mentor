@@ -52,7 +52,7 @@ export default function StoryPage() {
           title={
             <>
               成功談よりも、
-              <br />
+              <br className="display-break" />
               <em>立て直した過程</em>を伝えたい。
             </>
           }
@@ -81,7 +81,7 @@ export default function StoryPage() {
               <p className="eyebrow">PROFILE</p>
               <h2 id="profile-title">
                 分からなかった側の目線を、
-                <br />
+                <br className="display-break" />
                 置き去りにしない。
               </h2>
               <p className="large-copy">
@@ -141,7 +141,7 @@ export default function StoryPage() {
               <p className="eyebrow">WHAT I BELIEVE</p>
               <h2 id="belief-title">
                 答えを渡すより、
-                <br />
+                <br className="display-break" />
                 自分で選べる状態をつくる。
               </h2>
             </div>

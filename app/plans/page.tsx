@@ -60,7 +60,7 @@ export default function PlansPage() {
           title={
             <>
               必要な伴走の深さで、
-              <br />
+              <br className="display-break" />
               <em>2つのプラン</em>から選ぶ。
             </>
           }
@@ -166,7 +166,7 @@ export default function PlansPage() {
               <p className="eyebrow">TRIAL LESSON</p>
               <h2 id="trial-title">
                 まずは、無料体験で
-                <br />
+                <br className="display-break" />
                 進め方を確かめる。
               </h2>
             </div>

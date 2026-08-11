@@ -26,7 +26,7 @@ async function render(pathname = "/") {
 }
 
 const routes = [
-  ["/", "つまずいた経験があるから", "日本から世界へ、選択肢を無限大に。"],
+  ["/", "つまずいた経験から", "日本から世界へ、選択肢を無限大に。"],
   ["/support", "学び方と進み方", "答えを教えるだけでなく、進める道筋をつくる。"],
   ["/plans", "2つのプラン", "学び方が変われば、結果までの距離は変えられる。"],
   ["/story", "立て直した過程", "遠回りした経験は、誰かの最短ルートになる。"],
@@ -67,7 +67,19 @@ test("home uses the restrained profile card and identifies personal results", as
     /class="portrait-compact" role="img" aria-label="NCEA・海外大学進学メンター 米山陸"/,
   );
   assert.match(html, /本人の2023年出願結果/);
+  assert.match(html, /対応科目を、ひと目で/);
+  assert.match(html, /Algebra \/ Calculus/);
   assert.match(html, /サイトでは、本人の結果と指導実績を混同しない形で掲載しています/);
+});
+
+test("support explains subject scope and custom combinations", async () => {
+  const response = await render("/support");
+  const html = await response.text();
+
+  assert.match(html, /NCEA Subjects/);
+  assert.match(html, /Chemistry・Biology Level 1/);
+  assert.match(html, /サポートの組み合わせ例/);
+  assert.match(html, /固定コースではなく一例です/);
 });
 
 test("plans page renders the supplied pricing and course details", async () => {

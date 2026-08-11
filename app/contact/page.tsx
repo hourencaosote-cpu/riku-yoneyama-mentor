@@ -31,7 +31,7 @@ export default function ContactPage() {
           title={
             <>
               最初の30分で、
-              <br />
+              <br className="display-break" />
               <em>悩みを次の一歩</em>に変える。
             </>
           }
@@ -71,7 +71,7 @@ export default function ContactPage() {
               <p className="eyebrow light">FREE CONSULTATION</p>
               <h2 id="inquiry-title">
                 今困っていることを、
-                <br />
+                <br className="display-break" />
                 聞かせてください。
               </h2>
             </div>
@@ -137,7 +137,7 @@ export default function ContactPage() {
             <p>NO PRESSURE</p>
             <h2>
               話してみて違うと感じたら、
-              <br />
+              <br className="display-break" />
               そこで終えて大丈夫です。
             </h2>
             <p>

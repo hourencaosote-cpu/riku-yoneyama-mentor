@@ -94,7 +94,7 @@ export function ContactBand() {
           <p className="eyebrow light">FREE CONSULTATION</p>
           <h2 id="contact-band-title">
             まだ言葉になっていない悩みから、
-            <br />
+            <br className="display-break" />
             一緒に整理します。
           </h2>
         </div>

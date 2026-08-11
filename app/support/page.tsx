@@ -6,7 +6,12 @@ import {
   SiteHeader,
 } from "../_components/SiteChrome";
 import { SiteIntro } from "../_components/SiteIntro";
-import { methods, supportAreas } from "../_data/site";
+import {
+  methods,
+  programExamples,
+  subjectAreas,
+  supportAreas,
+} from "../_data/site";
 
 export const metadata: Metadata = {
   title: "サポート内容",
@@ -15,11 +20,6 @@ export const metadata: Metadata = {
 };
 
 const subjectGroups = [
-  {
-    title: "NCEA Subjects",
-    text: "Algebra / Calculus / Accounting / English / History / ESOL / Chemistry・Biology Level 1",
-    note: "学年・Level・課題内容は初回相談で確認します。",
-  },
   {
     title: "University & Scholarship",
     text: "大学・専攻選び / 出願計画 / 奨学金戦略 / 書類の確認・添削 / 面接準備",
@@ -49,9 +49,12 @@ export default function SupportPage() {
           currentLabel="サポート"
           title={
             <>
-              教科を教えるだけでなく、
-              <br />
-              <em>学び方と進み方</em>を整える。
+              <span className="page-title-line">教科だけでなく、</span>
+              <br className="display-break" />
+              <span className="page-title-line">
+                <em>学び方と進み方</em>を
+              </span>
+              <span className="page-title-tail">整える。</span>
             </>
           }
           lead="成績、進路、留学生活は別々の問題ではありません。目標から逆算し、日々の勉強から出願準備までを一つの計画にまとめます。"
@@ -61,7 +64,7 @@ export default function SupportPage() {
           <div className="section-shell audience-grid">
             <div className="section-head sticky-head">
               <p className="eyebrow">FOR WHOM</p>
-              <h2 id="audience-title">このような方に向いています。</h2>
+              <h2 id="audience-title">こんな悩みを持つ方へ。</h2>
               <p>
                 正解を一方的に渡すのではなく、今の状況を理解し、
                 自分で進める状態を一緒につくるサポートです。
@@ -118,7 +121,7 @@ export default function SupportPage() {
               <p className="eyebrow">THE METHOD</p>
               <h2 id="method-title">
                 才能ではなく、
-                <br />
+                <br className="display-break" />
                 <em>再現できる仕組み</em>で進む。
               </h2>
               <p>
@@ -146,12 +149,58 @@ export default function SupportPage() {
               <p className="eyebrow light">SCOPE</p>
               <h2 id="scope-title">主な指導・相談領域</h2>
             </div>
+            <div className="scope-subject-board" aria-label="対応科目一覧">
+              <div className="scope-subject-intro">
+                <h3>NCEA Subjects</h3>
+                <p>
+                  1科目から複数科目まで、必要な内容を組み合わせられます。
+                </p>
+              </div>
+              <div className="scope-subject-groups">
+                {subjectAreas.map((area) => (
+                  <article key={area.category}>
+                    <span>{area.title}</span>
+                    <p>{area.subjects.join(" / ")}</p>
+                  </article>
+                ))}
+              </div>
+              <small>学年・Level・課題内容は初回相談で確認します。</small>
+            </div>
             <div className="scope-list">
               {subjectGroups.map((group) => (
                 <article key={group.title}>
                   <h3>{group.title}</h3>
                   <p>{group.text}</p>
                   <small>{group.note}</small>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="section program-examples"
+          id="program-examples"
+          aria-labelledby="program-examples-title"
+        >
+          <div className="section-shell">
+            <div className="section-head">
+              <div>
+                <p className="eyebrow">PROGRAM EXAMPLES</p>
+                <h2 id="program-examples-title">サポートの組み合わせ例</h2>
+              </div>
+              <p>
+                以下は固定コースではなく一例です。得意・苦手、学校の予定、
+                進路の優先順位に合わせて内容を調整します。
+              </p>
+            </div>
+            <div className="program-example-grid">
+              {programExamples.map((example) => (
+                <article key={example.number}>
+                  <span>{example.number}</span>
+                  <p>{example.subjects}</p>
+                  <h3>{example.title}</h3>
+                  <small>{example.text}</small>
                 </article>
               ))}
             </div>
