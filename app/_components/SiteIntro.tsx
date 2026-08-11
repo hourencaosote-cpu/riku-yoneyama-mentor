@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { BrandMark } from "./BrandMark";
 
-type IntroPhase = "visible" | "leaving" | "hidden";
+type IntroPhase = "checking" | "visible" | "leaving" | "hidden";
+
+const INTRO_SEEN_KEY = "riku-yoneyama:intro-seen";
 
 type SiteIntroProps = {
   number: string;
@@ -20,13 +22,27 @@ export function SiteIntro({
   detail,
   tone,
 }: SiteIntroProps) {
-  const [phase, setPhase] = useState<IntroPhase>("visible");
+  const [phase, setPhase] = useState<IntroPhase>("checking");
 
   useEffect(() => {
+    try {
+      if (window.sessionStorage.getItem(INTRO_SEEN_KEY) === "true") {
+        setPhase("hidden");
+        document.body.classList.remove("intro-active");
+        return;
+      }
+
+      window.sessionStorage.setItem(INTRO_SEEN_KEY, "true");
+    } catch {
+      // Storage may be unavailable in privacy-restricted browsers. In that case,
+      // the intro still works for the current page.
+    }
+
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
+    setPhase("visible");
     document.body.classList.add("intro-active");
     const leaveTimer = window.setTimeout(
       () => setPhase("leaving"),
@@ -55,7 +71,7 @@ export function SiteIntro({
     }, 480);
   };
 
-  if (phase === "hidden") {
+  if (phase === "checking" || phase === "hidden") {
     return null;
   }
 
