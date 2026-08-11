@@ -170,12 +170,15 @@ export const methods = [
   },
 ];
 
+const publishedAssetBase =
+  "https://raw.githubusercontent.com/hourencaosote-cpu/riku-yoneyama-mentor/8d4366f3bd9b967a325760ad47d1bdf20ef5e83b/public";
+
 export const universities = [
   {
     name: "University of Melbourne",
     detail: "Bachelor of Commerce",
     offer: "AUD 45,000 Scholarship Offer",
-    image: "/universities/melbourne.jpg",
+    image: `${publishedAssetBase}/universities/melbourne.jpg`,
     imageAlt: "University of Melbourneの歴史的なキャンパス建築",
     imagePosition: "center 52%",
     photoAuthor: "Geoff Penaluna",
@@ -188,7 +191,7 @@ export const universities = [
     name: "University of Auckland",
     detail: "Business / Science",
     offer: "Full Tuition Scholarship Offer",
-    image: "/universities/auckland.jpg",
+    image: `${publishedAssetBase}/universities/auckland.jpg`,
     imageAlt: "University of AucklandのClockTower",
     imagePosition: "center 43%",
     photoAuthor: "Uhooep",
@@ -201,7 +204,7 @@ export const universities = [
     name: "Victoria University of Wellington",
     detail: "Commerce / Law",
     offer: "50% Tuition Scholarship Offer",
-    image: "/universities/wellington.jpg",
+    image: `${publishedAssetBase}/universities/wellington.jpg`,
     imageAlt: "Victoria University of WellingtonのHunter Building",
     imagePosition: "center 48%",
     photoAuthor: "Khirol Amir",
@@ -214,7 +217,7 @@ export const universities = [
     name: "University of Adelaide",
     detail: "Business / Economics",
     offer: "Merit-based Scholarship",
-    image: "/universities/adelaide.jpg",
+    image: `${publishedAssetBase}/universities/adelaide.jpg`,
     imageAlt: "University of AdelaideのBonython Hall",
     imagePosition: "center 52%",
     photoAuthor: "Paleontour",
@@ -227,7 +230,7 @@ export const universities = [
     name: "Massey University",
     detail: "Business / Applied Science",
     offer: "International Excellence Award",
-    image: "/universities/massey.jpg",
+    image: `${publishedAssetBase}/universities/massey.jpg`,
     imageAlt: "Massey University Manawatūキャンパスの大学建築",
     imagePosition: "center 48%",
     photoAuthor: "Michal Klajban",

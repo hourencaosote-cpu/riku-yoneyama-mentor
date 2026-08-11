@@ -6,6 +6,8 @@ import "./globals.css";
 const siteName = "米山 陸｜NCEA・海外大学進学 個別サポート";
 const description =
   "現役メルボルン大学生・米山陸による、NCEA学習、海外大学進学、留学生活のオンライン個別サポート。";
+const ogImageUrl =
+  "https://raw.githubusercontent.com/hourencaosote-cpu/riku-yoneyama-mentor/8d4366f3bd9b967a325760ad47d1bdf20ef5e83b/public/og.png";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -19,6 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const origin = `${protocol}://${host}`;
 
   return {
+    metadataBase: new URL(origin),
     title: {
       default: siteName,
       template: `%s｜${siteName}`,
@@ -44,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
         "つまずいた経験があるから、進める道筋を一緒につくれる。NCEA学習から海外大学進学、留学生活まで1対1で伴走します。",
       images: [
         {
-          url: `${origin}/og.png`,
+          url: ogImageUrl,
           width: 1728,
           height: 909,
           alt: "米山陸 NCEA・海外大学進学 個別サポート",
@@ -55,7 +58,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: siteName,
       description,
-      images: [`${origin}/og.png`],
+      images: [ogImageUrl],
     },
   };
 }

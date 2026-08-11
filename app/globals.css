@@ -830,7 +830,8 @@ em {
   aspect-ratio: 4 / 4.8;
   background:
     linear-gradient(180deg, transparent 72%, rgba(5, 20, 31, 0.08)),
-    url("/riku-yoneyama-profile-formal.png") 50% 20% / cover no-repeat;
+    url("https://raw.githubusercontent.com/hourencaosote-cpu/riku-yoneyama-mentor/8d4366f3bd9b967a325760ad47d1bdf20ef5e83b/public/riku-yoneyama-profile-formal.png")
+      50% 20% / cover no-repeat;
 }
 
 .portrait-meta {
@@ -1805,7 +1806,9 @@ em {
 
 .profile-photo {
   aspect-ratio: 4 / 4.9;
-  background: url("/riku-yoneyama-profile-formal.png") 50% 20% / cover no-repeat;
+  background:
+    url("https://raw.githubusercontent.com/hourencaosote-cpu/riku-yoneyama-mentor/8d4366f3bd9b967a325760ad47d1bdf20ef5e83b/public/riku-yoneyama-profile-formal.png")
+      50% 20% / cover no-repeat;
 }
 
 .profile-card > div:last-child {
