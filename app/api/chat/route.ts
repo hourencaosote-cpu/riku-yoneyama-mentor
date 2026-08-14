@@ -5,7 +5,7 @@ import {
   toUIMessageStream,
   type UIMessage,
 } from "ai";
-import { buildConsultationInstructions } from "../../_data/consultation-chat";
+import { buildConsultationInstructions } from "../../_data/consultation-chat-knowledge";
 
 export const maxDuration = 30;
 

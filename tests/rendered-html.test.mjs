@@ -47,6 +47,8 @@ for (const [pathname, expected, introQuote] of routes) {
     assert.match(html, /class="consultation-chat"/);
     assert.match(html, /AI事前相談/);
     assert.match(html, /米山さん本人に相談する/);
+    assert.match(html, /米山さんの経験・実績を知りたい/);
+    assert.match(html, /保護者だけでも相談できますか/);
     assert.match(html, /href="\/support"/);
     assert.match(html, /href="\/plans"/);
     assert.match(html, /href="\/story"/);
