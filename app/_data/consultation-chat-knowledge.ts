@@ -58,6 +58,8 @@ export const approvedConsultationKnowledge = {
       "NCEAが初めてでも、Achievement・Merit・Excellenceの違い、単位、評価基準から整理できます。目標から週・日単位の行動へ分解し、課題やテスト後に計画を見直します。",
     university:
       "大学・専攻選び、出願計画、奨学金、書類確認、面接準備を整理します。最新の入学条件や奨学金条件は変わるため、AIは断定せず公式情報と本人確認へ案内します。",
+    studyAbroadLife:
+      "留学生活では、生活・時間管理・学習習慣・モチベーションを切り離さず、継続できる形を一緒に整理します。緊急性のある心身の相談は、学校や専門機関、信頼できる大人へ相談してください。",
     plans:
       "スタンダードは月額18,000円・週1回60分、アドバンスは月額33,000円・週1回120分です。無料相談、個別プラン設計、1〜2週間の体験・確認を経てサポートを開始します。",
     tutorExperience:
@@ -74,6 +76,60 @@ export const approvedConsultationKnowledge = {
     "記載されていない科目や個別事情への対応可否は、米山さん本人が判断します。",
   ],
 } as const;
+
+const approvedAnswerMatchers = [
+  {
+    words: ["料金", "値段", "費用", "プラン", "コース", "体験", "相談の流れ"],
+    answer: approvedConsultationKnowledge.answerGuide.plans,
+  },
+  {
+    words: [
+      "科目",
+      "教科",
+      "algebra",
+      "calculus",
+      "accounting",
+      "english",
+      "esol",
+      "history",
+      "chemistry",
+      "biology",
+    ],
+    answer: approvedConsultationKnowledge.answerGuide.subjects,
+  },
+  {
+    words: ["ncea", "achievement", "merit", "excellence", "単位", "評価基準"],
+    answer: approvedConsultationKnowledge.answerGuide.ncea,
+  },
+  {
+    words: ["保護者", "親だけ", "親のみ"],
+    answer: approvedConsultationKnowledge.answerGuide.parents,
+  },
+  {
+    words: ["留学生活", "生活", "時差", "モチベーション", "孤独"],
+    answer: approvedConsultationKnowledge.answerGuide.studyAbroadLife,
+  },
+  {
+    words: ["進路", "専攻", "出願", "大学選び", "面接", "書類"],
+    answer: approvedConsultationKnowledge.answerGuide.university,
+  },
+  {
+    words: ["米山", "本人", "経験", "実績", "5大学", "合格", "奨学金"],
+    answer: approvedConsultationKnowledge.answerGuide.tutorExperience,
+  },
+] as const;
+
+export function findApprovedConsultationAnswer(input: string) {
+  const normalized = input.toLocaleLowerCase("ja");
+  const match = approvedAnswerMatchers.find(({ words }) =>
+    words.some((word) => normalized.includes(word.toLocaleLowerCase("ja"))),
+  );
+
+  return (
+    match?.answer ??
+    "ご相談内容を資料に沿って整理します。学年・対象科目・現在の悩み・目標や期限を、分かる範囲で教えてください。氏名、生徒番号、住所、成績表などの個人情報は入力しないでください。"
+  );
+}
 
 export function buildConsultationInstructions() {
   return `

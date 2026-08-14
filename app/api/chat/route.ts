@@ -1,11 +1,14 @@
 import {
   convertToModelMessages,
+  createUIMessageStream,
   createUIMessageStreamResponse,
-  streamText,
-  toUIMessageStream,
+  generateText,
   type UIMessage,
 } from "ai";
-import { buildConsultationInstructions } from "../../_data/consultation-chat-knowledge";
+import {
+  buildConsultationInstructions,
+  findApprovedConsultationAnswer,
+} from "../../_data/consultation-chat-knowledge";
 
 export const maxDuration = 30;
 
@@ -14,8 +17,23 @@ const MAX_BODY_SIZE = 24_000;
 const MAX_CONVERSATION_CHARACTERS = 12_000;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_REQUESTS = 12;
+const AI_RETRY_DELAY_MS = 10 * 60 * 1000;
 
 const requestBuckets = new Map<string, { count: number; resetAt: number }>();
+let retryAIAt = 0;
+
+function createTextResponse(text: string) {
+  const textPartId = crypto.randomUUID();
+  const stream = createUIMessageStream({
+    execute({ writer }) {
+      writer.write({ type: "text-start", id: textPartId });
+      writer.write({ type: "text-delta", id: textPartId, delta: text });
+      writer.write({ type: "text-end", id: textPartId });
+    },
+  });
+
+  return createUIMessageStreamResponse({ stream });
+}
 
 function isTextOnlyMessage(message: unknown): message is UIMessage {
   if (!message || typeof message !== "object") {
@@ -103,14 +121,28 @@ export async function POST(request: Request) {
     return Response.json({ error: "Conversation too large" }, { status: 413 });
   }
 
-  const result = streamText({
-    model: "openai/gpt-5.6-luna",
-    instructions: buildConsultationInstructions(),
-    messages: await convertToModelMessages(messages),
-    maxOutputTokens: 450,
-  });
+  const latestText = messages
+    .at(-1)!
+    .parts.filter((part) => part.type === "text")
+    .map((part) => part.text)
+    .join("\n");
+  const approvedFallback = findApprovedConsultationAnswer(latestText);
 
-  return createUIMessageStreamResponse({
-    stream: toUIMessageStream({ stream: result.stream }),
-  });
+  if (Date.now() < retryAIAt) {
+    return createTextResponse(approvedFallback);
+  }
+
+  try {
+    const result = await generateText({
+      model: "openai/gpt-5.6-luna",
+      instructions: buildConsultationInstructions(),
+      messages: await convertToModelMessages(messages),
+      maxOutputTokens: 450,
+    });
+
+    return createTextResponse(result.text);
+  } catch {
+    retryAIAt = Date.now() + AI_RETRY_DELAY_MS;
+    return createTextResponse(approvedFallback);
+  }
 }
