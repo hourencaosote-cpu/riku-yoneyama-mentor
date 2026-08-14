@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { ConsultationChat } from "./_components/ConsultationChat";
 import { MotionRuntime } from "./_components/MotionRuntime";
 import "./globals.css";
 
@@ -73,6 +74,7 @@ export default function RootLayout({
       <body>
         <MotionRuntime />
         {children}
+        <ConsultationChat />
       </body>
     </html>
   );

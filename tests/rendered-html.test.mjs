@@ -44,8 +44,9 @@ for (const [pathname, expected, introQuote] of routes) {
     assert.match(html, /<html lang="ja">/i);
     assert.match(html, new RegExp(expected));
     assert.ok(html.includes(introQuote));
-    assert.match(html, /class="brand-mark brand-mark-display brand-mark-inverse"/);
-    assert.match(html, /class="intro-brand-copy"/);
+    assert.match(html, /class="consultation-chat"/);
+    assert.match(html, /AI事前相談/);
+    assert.match(html, /米山さん本人に相談する/);
     assert.match(html, /href="\/support"/);
     assert.match(html, /href="\/plans"/);
     assert.match(html, /href="\/story"/);
