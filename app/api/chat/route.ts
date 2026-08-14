@@ -70,13 +70,6 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!process.env.AI_GATEWAY_API_KEY && !process.env.VERCEL_OIDC_TOKEN) {
-    return Response.json(
-      { error: "AI consultation is not configured" },
-      { status: 503 },
-    );
-  }
-
   let body: { messages?: UIMessage[] };
   try {
     body = (await request.json()) as { messages?: UIMessage[] };
