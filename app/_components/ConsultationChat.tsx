@@ -1,40 +1,84 @@
 "use client";
 
-import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport, type UIMessage } from "ai";
 import { useEffect, useRef, useState } from "react";
-import { consultationChat } from "../_data/consultation-chat";
+import {
+  consultationChat,
+  consultationConcerns,
+  consultationSteps,
+  type ConsultationAnswers,
+  type ConsultationStepId,
+  type ConsultationTopic,
+} from "../_data/consultation-chat";
+import { approvedConsultationAnswerGuide } from "../_data/consultation-chat-knowledge";
 import { BrandMark } from "./BrandMark";
 
-const initialMessages: UIMessage[] = [
-  {
-    id: "consultation-welcome",
-    role: "assistant",
-    parts: [{ type: "text", text: consultationChat.welcome }],
-  },
+const flow: ConsultationStepId[] = [
+  "audience",
+  "schoolStage",
+  "topic",
+  "concern",
+  "timing",
 ];
 
-const chatTransport = new DefaultChatTransport({ api: "/api/chat" });
+function getTopicLabel(topic?: ConsultationTopic) {
+  return consultationSteps.topic.options.find((option) => option.id === topic)
+    ?.label;
+}
+
+function getStepPrompt(step: ConsultationStepId) {
+  if (step === "concern") {
+    return "今の状況に一番近いものを選んでください。";
+  }
+
+  return consultationSteps[step].prompt;
+}
+
+function getAnswerLabel(step: ConsultationStepId, answers: ConsultationAnswers) {
+  if (step === "topic") {
+    return getTopicLabel(answers.topic) ?? "";
+  }
+
+  return answers[step] ?? "";
+}
+
+function buildConsultationEmail(answers: ConsultationAnswers) {
+  const subject = "無料相談について（事前相談まとめ）";
+  const body = [
+    "米山様",
+    "",
+    "無料相談を希望します。事前相談で整理した内容は以下の通りです。",
+    "",
+    "【事前相談まとめ】",
+    `相談者：${answers.audience ?? "未回答"}`,
+    `学年・状況：${answers.schoolStage ?? "未回答"}`,
+    `相談テーマ：${getTopicLabel(answers.topic) ?? "未回答"}`,
+    `現在の悩み：${answers.concern ?? "未回答"}`,
+    `希望時期：${answers.timing ?? "未回答"}`,
+    "",
+    "お名前：",
+    "在住国：",
+    "その他に伝えたいこと：",
+  ].join("\n");
+
+  return `mailto:${consultationChat.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
 export function ConsultationChat() {
   const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState("");
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [answers, setAnswers] = useState<ConsultationAnswers>({});
+  const closeRef = useRef<HTMLButtonElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const { messages, sendMessage, status, error, stop, regenerate } = useChat({
-    transport: chatTransport,
-    messages: initialMessages,
-  });
-
-  const isResponding = status === "submitted" || status === "streaming";
-  const canSend = status === "ready" && input.trim().length > 0;
+  const isComplete = currentStep >= flow.length;
+  const activeStep = flow[currentStep];
+  const topic = answers.topic;
 
   useEffect(() => {
     if (!isOpen) {
       return;
     }
 
-    const focusTimer = window.setTimeout(() => inputRef.current?.focus(), 220);
+    const focusTimer = window.setTimeout(() => closeRef.current?.focus(), 220);
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsOpen(false);
@@ -52,16 +96,67 @@ export function ConsultationChat() {
     if (isOpen) {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [isOpen, messages, status]);
+  }, [currentStep, isOpen]);
 
-  const submit = (text: string) => {
-    const value = text.trim();
-    if (!value || status !== "ready") {
-      return;
+  const selectOption = (step: ConsultationStepId, value: string) => {
+    setAnswers((current) => ({ ...current, [step]: value }));
+    setCurrentStep((current) => current + 1);
+  };
+
+  const selectTopic = (value: ConsultationTopic) => {
+    setAnswers((current) => ({ ...current, topic: value }));
+    setCurrentStep((current) => current + 1);
+  };
+
+  const restart = () => {
+    setAnswers({});
+    setCurrentStep(0);
+  };
+
+  const guidance = topic
+    ? approvedConsultationAnswerGuide[topic]
+    : null;
+
+  const renderOptions = () => {
+    if (activeStep === "topic") {
+      return consultationSteps.topic.options.map((option) => (
+        <button
+          type="button"
+          key={option.id}
+          onClick={() => selectTopic(option.id)}
+        >
+          {option.label}
+        </button>
+      ));
     }
 
-    void sendMessage({ text: value });
-    setInput("");
+    if (activeStep === "concern") {
+      return topic
+        ? consultationConcerns[topic].map((option) => (
+            <button
+              type="button"
+              key={option}
+              onClick={() => selectOption("concern", option)}
+            >
+              {option}
+            </button>
+          ))
+        : null;
+    }
+
+    if (!activeStep) {
+      return null;
+    }
+
+    return consultationSteps[activeStep].options.map((option) => (
+      <button
+        type="button"
+        key={option}
+        onClick={() => selectOption(activeStep, option)}
+      >
+        {option}
+      </button>
+    ));
   };
 
   return (
@@ -78,124 +173,112 @@ export function ConsultationChat() {
           <div className="consultation-chat-identity">
             <BrandMark />
             <div>
-              <span>AIによる事前相談</span>
+              <span>無料・選択式の事前整理</span>
               <strong id="consultation-chat-title">{consultationChat.title}</strong>
             </div>
           </div>
           <button
+            ref={closeRef}
             type="button"
             className="consultation-chat-close"
-            aria-label="AI相談を閉じる"
+            aria-label="事前相談を閉じる"
             onClick={() => setIsOpen(false)}
           >
             ×
           </button>
         </header>
 
+        <div className="consultation-chat-progress" aria-label="相談の進捗">
+          <span>{isComplete ? "相談内容の整理が完了しました" : `質問 ${currentStep + 1} / ${flow.length}`}</span>
+          <i aria-hidden="true">
+            <b style={{ width: `${isComplete ? 100 : (currentStep / flow.length) * 100}%` }} />
+          </i>
+        </div>
+
         <div className="consultation-chat-messages" aria-live="polite">
-          {messages.map((message) => {
-            const text = message.parts
-              .filter((part) => part.type === "text")
-              .map((part) => part.text)
-              .join("");
+          <div className="consultation-message consultation-message-assistant">
+            <span>事前相談</span>
+            <p>{consultationChat.welcome}</p>
+          </div>
 
-            if (!text) {
-              return null;
-            }
-
-            return (
-              <div
-                className={`consultation-message consultation-message-${message.role}`}
-                key={message.id}
-              >
-                <span>{message.role === "user" ? "あなた" : "AI相談"}</span>
-                <p>{text}</p>
+          {flow.slice(0, currentStep).map((step) => (
+            <div className="consultation-exchange" key={step}>
+              <div className="consultation-message consultation-message-assistant">
+                <span>事前相談</span>
+                <p>{getStepPrompt(step)}</p>
               </div>
-            );
-          })}
+              <div className="consultation-message consultation-message-user">
+                <span>あなたの選択</span>
+                <p>{getAnswerLabel(step, answers)}</p>
+              </div>
+            </div>
+          ))}
 
-          {messages.length === 1 && (
-            <div className="consultation-quick-prompts" aria-label="相談例">
-              {consultationChat.quickPrompts.map((prompt) => (
-                <button
-                  type="button"
-                  key={prompt}
-                  disabled={status !== "ready"}
-                  onClick={() => submit(prompt)}
-                >
-                  {prompt}
-                </button>
-              ))}
+          {!isComplete && activeStep && (
+            <div className="consultation-current-step">
+              <div className="consultation-message consultation-message-assistant">
+                <span>事前相談</span>
+                <p>{getStepPrompt(activeStep)}</p>
+              </div>
+              <div className="consultation-options" aria-label="回答を選択">
+                {renderOptions()}
+              </div>
             </div>
           )}
 
-          {isResponding && (
-            <div className="consultation-chat-thinking">
-              <span />
-              <span />
-              <span />
-              <small>回答を整理しています</small>
-            </div>
-          )}
-
-          {error && (
-            <div className="consultation-chat-error" role="alert">
-              <p>
-                現在AI相談を利用できません。時間をおいて再度お試しいただくか、
-                本人へ直接ご相談ください。
-              </p>
-              <button type="button" onClick={() => void regenerate()}>
-                もう一度試す
+          {isComplete && guidance && (
+            <section className="consultation-summary" aria-labelledby="consultation-summary-title">
+              <p className="consultation-summary-kicker">READY FOR CONSULTATION</p>
+              <h3 id="consultation-summary-title">個別相談用のまとめ</h3>
+              <dl>
+                <div>
+                  <dt>相談者</dt>
+                  <dd>{answers.audience}</dd>
+                </div>
+                <div>
+                  <dt>学年・状況</dt>
+                  <dd>{answers.schoolStage}</dd>
+                </div>
+                <div>
+                  <dt>テーマ</dt>
+                  <dd>{getTopicLabel(topic)}</dd>
+                </div>
+                <div>
+                  <dt>現在の悩み</dt>
+                  <dd>{answers.concern}</dd>
+                </div>
+                <div>
+                  <dt>希望時期</dt>
+                  <dd>{answers.timing}</dd>
+                </div>
+              </dl>
+              <div className="consultation-summary-guidance">
+                <strong>資料に基づくご案内</strong>
+                <p>{guidance}</p>
+              </div>
+              <a className="consultation-summary-cta" href={buildConsultationEmail(answers)}>
+                この内容をメールに引き継ぐ
+                <span aria-hidden="true">↗</span>
+              </a>
+              <button type="button" className="consultation-restart" onClick={restart}>
+                最初からやり直す
               </button>
-            </div>
+              <small>
+                メールを開いてから、お名前・在住国・補足内容を追記できます。
+              </small>
+            </section>
           )}
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="consultation-chat-compose">
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              submit(input);
-            }}
-          >
-            <label htmlFor="consultation-chat-input">相談内容</label>
-            <textarea
-              id="consultation-chat-input"
-              ref={inputRef}
-              rows={2}
-              maxLength={800}
-              value={input}
-              disabled={isResponding}
-              placeholder="例：Year 12でCalculusの勉強法に悩んでいます"
-              onChange={(event) => setInput(event.currentTarget.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" && !event.shiftKey) {
-                  event.preventDefault();
-                  submit(input);
-                }
-              }}
-            />
-            {isResponding ? (
-              <button type="button" className="consultation-send" onClick={() => stop()}>
-                停止
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="consultation-send"
-                disabled={!canSend}
-                aria-label="相談内容を送信する"
-              >
-                ↑
-              </button>
-            )}
-          </form>
-          <div className="consultation-chat-footer">
-            <a href={consultationChat.contactHref}>{consultationChat.contactLabel}</a>
-            <p>AIの回答は事前整理です。重要事項は本人にご確認ください。</p>
-          </div>
-        </div>
+        {!isComplete && (
+          <footer className="consultation-chat-compose">
+            <div className="consultation-chat-footer">
+              <a href={consultationChat.contactHref}>{consultationChat.contactLabel}</a>
+              <p>選択内容は外部AIへ送信せず、この画面内でのみ整理します。</p>
+            </div>
+          </footer>
+        )}
       </section>
 
       <button
