@@ -12,8 +12,6 @@ import {
 import { findApprovedConsultationGuide } from "../_data/consultation-chat-knowledge";
 import { BrandMark } from "./BrandMark";
 
-type SendStatus = "idle" | "sending" | "sent" | "error";
-
 function buildConsultationEmail(answers: ConsultationAnswers) {
   const subject = `【カウンセリング申込】${answers.name ?? ""}`;
   const body = [
@@ -37,9 +35,6 @@ export function ConsultationChat() {
   const [answers, setAnswers] = useState<ConsultationAnswers>({});
   const [draft, setDraft] = useState("");
   const [isWritingOther, setIsWritingOther] = useState(false);
-  const [status, setStatus] = useState<SendStatus>("idle");
-  const [isDelivered, setIsDelivered] = useState(false);
-  const [honeypot, setHoneypot] = useState("");
   const closeRef = useRef<HTMLButtonElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -73,7 +68,7 @@ export function ConsultationChat() {
     if (isOpen) {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [currentStep, isOpen, status]);
+  }, [currentStep, isOpen]);
 
   const advance = (step: ConsultationStepId, value: string) => {
     setAnswers((current) => ({ ...current, [step]: value }));
@@ -85,7 +80,6 @@ export function ConsultationChat() {
   const goBack = () => {
     setDraft("");
     setIsWritingOther(false);
-    setStatus("idle");
     setCurrentStep((current) => Math.max(0, current - 1));
   };
 
@@ -93,8 +87,6 @@ export function ConsultationChat() {
     setAnswers({});
     setDraft("");
     setIsWritingOther(false);
-    setStatus("idle");
-    setIsDelivered(false);
     setCurrentStep(0);
   };
 
@@ -113,29 +105,6 @@ export function ConsultationChat() {
     }
 
     advance(activeStepId, isWritingOther ? `その他：${value}` : value);
-  };
-
-  const send = async () => {
-    setStatus("sending");
-
-    try {
-      const response = await fetch("/api/consultation", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ answers, company: honeypot }),
-      });
-
-      if (!response.ok) {
-        setStatus("error");
-        return;
-      }
-
-      const result = (await response.json()) as { delivered?: boolean };
-      setIsDelivered(Boolean(result.delivered));
-      setStatus("sent");
-    } catch {
-      setStatus("error");
-    }
   };
 
   const renderStepInput = () => {
@@ -353,55 +322,13 @@ export function ConsultationChat() {
                 </div>
               )}
 
-              {status === "sent" ? (
-                <div className="consultation-chat-sent">
-                  <strong>送信しました。</strong>
-                  <p>
-                    {isDelivered
-                      ? "米山陸本人へ届いています。数日以内にご記入のメールアドレスへ返信します。"
-                      : "この環境ではメール送信が未設定のため、内容はサーバーログにのみ記録されました。下のリンクからメールでも送信できます。"}
-                  </p>
-                  {!isDelivered && (
-                    <a
-                      className="consultation-summary-cta"
-                      href={buildConsultationEmail(answers)}
-                    >
-                      メールアプリで送信する
-                      <span aria-hidden="true">↗</span>
-                    </a>
-                  )}
-                </div>
-              ) : (
-                <>
-                  {status === "error" && (
-                    <div className="consultation-chat-error">
-                      送信に失敗しました。時間をおいて再送するか、メールで直接お送りください。
-                      <a href={buildConsultationEmail(answers)}>
-                        メールアプリで送信する
-                      </a>
-                    </div>
-                  )}
-                  <label className="consultation-honeypot">
-                    会社名
-                    <input
-                      type="text"
-                      tabIndex={-1}
-                      autoComplete="off"
-                      value={honeypot}
-                      onChange={(event) => setHoneypot(event.target.value)}
-                    />
-                  </label>
-                  <button
-                    type="button"
-                    className="consultation-summary-cta"
-                    disabled={status === "sending"}
-                    onClick={send}
-                  >
-                    {status === "sending" ? "送信中…" : "この内容を送信する"}
-                    <span aria-hidden="true">↗</span>
-                  </button>
-                </>
-              )}
+              <a
+                className="consultation-summary-cta"
+                href={buildConsultationEmail(answers)}
+              >
+                この内容をメールで送る
+                <span aria-hidden="true">↗</span>
+              </a>
 
               <button
                 type="button"
@@ -410,7 +337,10 @@ export function ConsultationChat() {
               >
                 最初からやり直す
               </button>
-              <small>{consultationChat.privacyNote}</small>
+              <small>
+                メールアプリが開きます。送信前にお名前や補足を追記できます。
+                {consultationChat.privacyNote}
+              </small>
             </section>
           )}
           <div ref={messagesEndRef} />
