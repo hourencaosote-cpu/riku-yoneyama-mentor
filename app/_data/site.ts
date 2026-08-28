@@ -1,3 +1,6 @@
+export const publishedAssetBase =
+  "https://raw.githubusercontent.com/hourencaosote-cpu/riku-yoneyama-mentor/8d4366f3bd9b967a325760ad47d1bdf20ef5e83b/public";
+
 export const navigation = [
   { href: "/support", label: "サポート" },
   { href: "/plans", label: "料金プラン" },
@@ -101,21 +104,45 @@ export const supportAreas = [
 export const subjectAreas = [
   {
     category: "MATH",
+    ringImage: "/scenes/subject-math.jpg",
+    photoAuthor: "LBM1948",
+    photoLicense: "CC BY-SA 4.0",
+    photoLicenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+    photoSource: "https://commons.wikimedia.org/wiki/File:Classroom_blackboard_at_Cornell_University,_Ithaca,_NY_25.jpg",
+    detail: "計算の手順だけでなく、Explain問題で求められる説明の書き方まで整理します。",
     title: "数学",
     subjects: ["Algebra", "Calculus"],
   },
   {
     category: "BUSINESS",
+    ringImage: "/scenes/subject-business.jpg",
+    photoAuthor: "Øyvind Holmstad",
+    photoLicense: "CC BY-SA 4.0",
+    photoLicenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+    photoSource: "https://commons.wikimedia.org/wiki/File:Accounting_book.jpg",
+    detail: "用語を日本語で押さえてから、英語での記述と課題の組み立てに進みます。",
     title: "ビジネス",
     subjects: ["Accounting"],
   },
   {
     category: "LANGUAGE & HUMANITIES",
+    ringImage: "/scenes/subject-language.jpg",
+    photoAuthor: "Shixart1985",
+    photoLicense: "CC BY 2.0",
+    photoLicenseUrl: "https://creativecommons.org/licenses/by/2.0",
+    photoSource: "https://commons.wikimedia.org/wiki/File:Young_person_reading_a_book_in_a_cozy_library_surrounded_by_shelves_of_literature.jpg",
+    detail: "エッセイのストラクチャーを型から確認し、評価基準に沿って直します。",
     title: "英語・人文",
     subjects: ["English", "ESOL", "History"],
   },
   {
     category: "SCIENCE",
+    ringImage: "/scenes/subject-science.jpg",
+    photoAuthor: "Belikov Maxim",
+    photoLicense: "CC BY 4.0",
+    photoLicenseUrl: "https://creativecommons.org/licenses/by/4.0",
+    photoSource: "https://commons.wikimedia.org/wiki/File:Equipment_and_glassware.jpg",
+    detail: "Level 1の範囲で用語を整理し、レポートと記述問題の書き方をそろえます。",
     title: "理科",
     subjects: ["Chemistry・Biology Level 1"],
   },
@@ -170,12 +197,10 @@ export const methods = [
   },
 ];
 
-const publishedAssetBase =
-  "https://raw.githubusercontent.com/hourencaosote-cpu/riku-yoneyama-mentor/8d4366f3bd9b967a325760ad47d1bdf20ef5e83b/public";
-
 export const universities = [
   {
     name: "University of Melbourne",
+    railLabel: "Melbourne",
     detail: "Bachelor of Commerce",
     offer: "AUD 45,000 Scholarship Offer",
     image: `${publishedAssetBase}/universities/melbourne.jpg`,
@@ -189,6 +214,7 @@ export const universities = [
   },
   {
     name: "University of Auckland",
+    railLabel: "Auckland",
     detail: "Business / Science",
     offer: "Full Tuition Scholarship Offer",
     image: `${publishedAssetBase}/universities/auckland.jpg`,
@@ -202,6 +228,7 @@ export const universities = [
   },
   {
     name: "Victoria University of Wellington",
+    railLabel: "Wellington",
     detail: "Commerce / Law",
     offer: "50% Tuition Scholarship Offer",
     image: `${publishedAssetBase}/universities/wellington.jpg`,
@@ -215,6 +242,7 @@ export const universities = [
   },
   {
     name: "University of Adelaide",
+    railLabel: "Adelaide",
     detail: "Business / Economics",
     offer: "Merit-based Scholarship",
     image: `${publishedAssetBase}/universities/adelaide.jpg`,
@@ -228,6 +256,7 @@ export const universities = [
   },
   {
     name: "Massey University",
+    railLabel: "Massey",
     detail: "Business / Applied Science",
     offer: "International Excellence Award",
     image: `${publishedAssetBase}/universities/massey.jpg`,
@@ -244,24 +273,48 @@ export const universities = [
 export const steps = [
   {
     number: "01",
+    image: "/scenes/step-01.jpg",
+    detail: "学年・科目・締め切りを一緒に書き出し、次に取る行動を1つ決めて終わります。",
+    photoAuthor: "Kannan Shanmugam, Shanmugam Studio, Kollam",
+    photoLicense: "CC BY-SA 4.0",
+    photoLicenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+    photoSource: "https://commons.wikimedia.org/wiki/File:Student_attending_online_class_in_Kerala.jpg",
     title: "無料相談",
     meta: "約30分",
     text: "困っていること、目標、現在の状況を伺います。まだ悩みが整理できていなくても大丈夫です。",
   },
   {
     number: "02",
+    image: "/scenes/step-02.jpg",
+    detail: "科目の組み合わせ、頻度、期間をご提案します。合わない場合は無理にお勧めしません。",
+    photoAuthor: "MilamAiken",
+    photoLicense: "CC BY-SA 4.0",
+    photoLicenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+    photoSource: "https://commons.wikimedia.org/wiki/File:MBA_students_serve_as_mentors.jpg",
     title: "プラン設計",
     meta: "個別にご提案",
     text: "必要な支援と優先順位を整理し、進め方・頻度・条件を分かりやすくお伝えします。",
   },
   {
     number: "03",
+    image: "/scenes/step-03.jpg",
+    detail: "実際の授業と課題レビューを体験。継続するかどうかは、ここで判断できます。",
+    photoAuthor: "Gumah1",
+    photoLicense: "CC BY-SA 4.0",
+    photoLicenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+    photoSource: "https://commons.wikimedia.org/wiki/File:Students_writing_in_class.jpg",
     title: "体験・確認",
     meta: "1〜2週間",
     text: "実際の支援を通して、相性と進め方を確認。学習計画の立案と振り返りを体験します。",
   },
   {
     number: "04",
+    image: "/scenes/step-04.jpg",
+    detail: "週次で計画を更新します。保護者向けレポートはアドバンスコースに含まれます。",
+    photoAuthor: "Memorial Student Center Texas A&amp;M University",
+    photoLicense: "CC BY 2.0",
+    photoLicenseUrl: "https://creativecommons.org/licenses/by/2.0",
+    photoSource: "https://commons.wikimedia.org/wiki/File:Latino_Educators-_Mentors_that_make_a_lasting_impact_(21876283221).jpg",
     title: "サポート開始",
     meta: "継続レビュー",
     text: "定期授業と振り返りを始め、学校や出願の状況に合わせて計画を更新します。",

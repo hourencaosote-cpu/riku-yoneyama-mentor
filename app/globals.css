@@ -12,10 +12,43 @@
   --gold: #bf982d;
   --red: #b5483d;
   --white: #fffef9;
-  --shadow: 0 24px 60px rgba(16, 36, 50, 0.1);
+  --shadow:
+    0 1px 2px rgba(16, 36, 50, 0.05),
+    0 8px 22px rgba(16, 36, 50, 0.07),
+    0 30px 66px rgba(16, 36, 50, 0.11);
+  --shadow-soft:
+    0 1px 2px rgba(16, 36, 50, 0.04),
+    0 10px 30px rgba(16, 36, 50, 0.07);
+  /* 面の上を斜めに走る光。のっぺり感を消すために各カードへ1枚重ねる。 */
+  --sheen: linear-gradient(
+    143deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(255, 255, 255, 0.4) 22%,
+    rgba(255, 255, 255, 0) 46%
+  );
+  --sheen-dark: linear-gradient(
+    143deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.05) 24%,
+    rgba(255, 255, 255, 0) 52%
+  );
   --shell: min(1180px, calc(100vw - 48px));
-  --font-display-ja: "DNP ShueiYMincho Std", "DNP 秀英横太明朝 Std",
-    "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+  --font-display-ja: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic",
+    "YuGothic", sans-serif;
+  --font-body: "Noto Sans JP", -apple-system, BlinkMacSystemFont,
+    "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  --font-latin: "Archivo", "Noto Sans JP", sans-serif;
+  --font-serif: "Source Serif 4", "Noto Sans JP", Georgia, serif;
+
+  /* 見出しの寸法はこの7段階だけを使う。個別に clamp を足さないこと。 */
+  --fs-display: clamp(2.9rem, 6vw, 5.2rem);
+  --fs-h2: clamp(2.25rem, 4.3vw, 3.8rem);
+  --fs-h2-sm: clamp(1.95rem, 3.5vw, 3rem);
+  --fs-h3-lg: clamp(1.7rem, 3vw, 2.45rem);
+  --fs-h3: clamp(1.32rem, 2.1vw, 1.62rem);
+  --fs-h4: 1.06rem;
+  --fs-label: 0.86rem;
+  --fs-number: clamp(3rem, 6vw, 5.2rem);
 }
 
 * {
@@ -43,9 +76,7 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--paper);
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Yu Gothic", "YuGothic",
-    "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
@@ -83,12 +114,70 @@ blockquote {
   margin: 0;
 }
 
+/* 見出しの太さ・字間・行間もこの3段階に統一。個別指定を足さないこと。 */
 main h1,
 main h2,
 main h3,
 .intro-catchcopy {
   font-family: var(--font-display-ja);
   font-feature-settings: "palt" 1;
+}
+
+main h1,
+.intro-catchcopy {
+  font-weight: 900;
+  letter-spacing: -0.075em;
+  line-height: 0.9;
+  /* 大きい文字だけ、紙から少し浮いて見えるくらいの影を置く。 */
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6),
+    0 2px 5px rgba(13, 41, 64, 0.14),
+    0 12px 30px rgba(13, 41, 64, 0.1);
+}
+
+main h2 {
+  font-weight: 900;
+  letter-spacing: -0.042em;
+  line-height: 1.08;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.5),
+    0 2px 4px rgba(13, 41, 64, 0.11),
+    0 8px 20px rgba(13, 41, 64, 0.07);
+}
+
+/* 濃い背景の上では、白い縁取りを外して落ち影だけにする。 */
+.contact-band h2,
+.experience-section h2,
+.university-card h3,
+.intro-catchcopy,
+.result-summary strong {
+  text-shadow:
+    0 2px 6px rgba(3, 16, 27, 0.34),
+    0 14px 34px rgba(3, 16, 27, 0.26);
+}
+
+/* 大きな数字にも同じ高低差を。 */
+.plan-price strong,
+.proof-item strong {
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.5),
+    0 2px 5px rgba(13, 41, 64, 0.12),
+    0 10px 24px rgba(13, 41, 64, 0.08);
+}
+
+main h3 {
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.34;
+}
+
+/* --fs-h3-lg を使う大きめの h3 だけ、行間と字間をもう一段詰める。 */
+.university-card h3,
+.subject-ring-panel h3,
+.plan-grid h3,
+.story-list h3 {
+  letter-spacing: -0.04em;
+  line-height: 1.14;
 }
 
 ul,
@@ -123,6 +212,7 @@ em {
 }
 
 .eyebrow {
+  font-family: var(--font-latin);
   margin-bottom: 24px;
   color: var(--blue);
   font-size: 0.72rem;
@@ -151,10 +241,7 @@ em {
 .evidence-grid h2,
 .boundary-grid h2 {
   max-width: 780px;
-  font-size: clamp(2.1rem, 4vw, 3.65rem);
-  font-weight: 680;
-  letter-spacing: -0.045em;
-  line-height: 1.18;
+  font-size: var(--fs-h2);
 }
 
 .section-head > p,
@@ -250,7 +337,7 @@ em {
   z-index: 3;
   gap: 1px;
   align-items: baseline;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 0.69rem;
   font-weight: 700;
   letter-spacing: -0.12em;
@@ -649,7 +736,7 @@ em {
   border-radius: 50%;
   background: var(--intro-accent);
   place-items: center;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 0.65rem;
   letter-spacing: 0;
 }
@@ -657,7 +744,7 @@ em {
 .intro-catchcopy {
   max-width: 830px;
   margin-top: 34px;
-  font-size: clamp(2.8rem, 5.1vw, 5.3rem);
+  font-size: var(--fs-display);
   font-weight: 700;
   letter-spacing: -0.045em;
   line-height: 1.28;
@@ -791,15 +878,8 @@ em {
 
 .hero-copy h1 {
   margin-bottom: 34px;
-  font-size: clamp(3.25rem, 5vw, 4.25rem);
-  font-weight: 650;
-  letter-spacing: -0.065em;
-  line-height: 1.08;
+  font-size: var(--fs-display);
   text-wrap: balance;
-}
-
-.hero-mobile-tail {
-  margin-left: 0.18em;
 }
 
 .hero-lead {
@@ -895,15 +975,342 @@ em {
 }
 
 .subject-overview-head h2 {
-  font-size: clamp(2rem, 3.6vw, 3.3rem);
-  font-weight: 660;
-  letter-spacing: -0.045em;
-  line-height: 1.18;
+  font-size: var(--fs-h2-sm);
 }
 
 .subject-overview-head > p {
   color: var(--muted);
   line-height: 1.9;
+}
+
+
+/* --- 光沢レイヤー ---------------------------------------------------- */
+/* 明るい面: 左上からの光を一枚重ね、縁に細いハイライトを置く。 */
+.path-card,
+.subject-ring,
+.profile-card,
+.plan-grid > article,
+.voice-grid > article,
+.concern-grid > article {
+  position: relative;
+  isolation: isolate;
+}
+
+.path-card::before,
+.subject-ring::before,
+.profile-card::before,
+.plan-grid > article::before,
+.voice-grid > article::before,
+.concern-grid > article::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--sheen);
+  content: "";
+  opacity: 0.55;
+  pointer-events: none;
+  transition: opacity 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.path-card:hover::before,
+.plan-grid > article:hover::before,
+.concern-grid > article:hover::before {
+  opacity: 0.85;
+}
+
+.path-card > *,
+.subject-ring > *,
+.profile-card > *,
+.plan-grid > article > *,
+.voice-grid > article > *,
+.concern-grid > article > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 暗い面: 上端に細い光の線を入れて、平らな塗りに見えないようにする。 */
+.result-summary,
+.contact-band,
+.university-card,
+.experience-section {
+  position: relative;
+}
+
+.result-summary::before,
+.contact-band::before,
+.experience-section::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: var(--sheen-dark);
+  content: "";
+  pointer-events: none;
+}
+
+.result-summary > *,
+.contact-band > *,
+.experience-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.university-card .university-card-media > span {
+  background:
+    var(--sheen-dark),
+    linear-gradient(110deg, rgba(9, 38, 58, 0.42), rgba(9, 38, 58, 0.04) 52%),
+    linear-gradient(
+      180deg,
+      rgba(6, 26, 41, 0.02) 12%,
+      rgba(6, 26, 41, 0.28) 54%,
+      rgba(6, 26, 41, 0.94) 100%
+    );
+}
+
+/* 背景そのものにも、ごく淡い光の広がりを敷く。 */
+body {
+  background-image:
+    radial-gradient(
+      120% 70% at 12% -8%,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0) 58%
+    ),
+    radial-gradient(
+      90% 60% at 92% 4%,
+      rgba(5, 132, 181, 0.07) 0%,
+      rgba(5, 132, 181, 0) 60%
+    );
+  background-attachment: fixed;
+}
+
+/* ボタンにも軽い立体感を。 */
+.button-primary {
+  background-image: var(--sheen-dark);
+  box-shadow: var(--shadow-soft);
+}
+
+.subject-ring {
+  display: grid;
+  position: relative;
+  margin-top: 44px;
+  padding: 46px 42px;
+  overflow: hidden;
+  gap: 40px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.86fr);
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: var(--white);
+  isolation: isolate;
+}
+
+.subject-ring-bg {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+}
+
+.subject-ring-bg img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  opacity: 0;
+  object-fit: cover;
+  filter: grayscale(0.4);
+  transform: scale(1.07);
+  transition:
+    opacity 780ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 1200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.subject-ring-bg img.is-active,
+.subject-ring:not(.is-ready) .subject-ring-bg img:first-child {
+  opacity: 0.13;
+  transform: scale(1);
+}
+
+.subject-ring-copy {
+  display: grid;
+  position: relative;
+  min-height: 208px;
+  align-content: center;
+}
+
+.subject-ring-panel {
+  grid-area: 1 / 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px);
+  /* 退場は速く、入場は少し遅らせる。文字が重なって読めなくなるのを防ぐ。 */
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.subject-ring-panel.is-active,
+.subject-ring:not(.is-ready) .subject-ring-panel:first-child {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+  transition:
+    opacity 420ms cubic-bezier(0.2, 0.8, 0.2, 1) 150ms,
+    transform 480ms cubic-bezier(0.2, 0.8, 0.2, 1) 150ms;
+}
+
+.subject-ring-panel h3 {
+  margin-top: 12px;
+  font-size: var(--fs-h3-lg);
+}
+
+.subject-ring-subjects {
+  margin-top: 12px;
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.subject-ring-detail {
+  max-width: 34em;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+
+.subject-ring-wrap {
+  position: relative;
+  width: min(100%, 366px);
+  aspect-ratio: 1;
+  justify-self: center;
+}
+
+.subject-ring-wrap svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.subject-ring-wrap path {
+  fill: none;
+  stroke: rgba(13, 41, 64, 0.14);
+  stroke-linecap: round;
+  stroke-width: 3;
+  transition:
+    stroke 420ms ease,
+    stroke-width 420ms ease;
+}
+
+.subject-ring-wrap path.is-active {
+  stroke: var(--blue);
+  stroke-width: 5;
+}
+
+/* 円弧の当たり判定。見た目の線より十分太くして、掴みやすくする。 */
+.subject-ring-wrap path.subject-ring-hit {
+  stroke: transparent;
+  stroke-width: 40;
+  cursor: pointer;
+  pointer-events: stroke;
+  transition: none;
+}
+
+.subject-ring-center {
+  display: grid;
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  color: var(--muted);
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  place-items: center;
+  pointer-events: none;
+}
+
+.subject-ring-label {
+  position: absolute;
+  padding: 10px 14px;
+  color: var(--muted);
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition:
+    color 380ms ease,
+    transform 380ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* 円弧は半径40%を通るため、ラベルは内側（中心から約23%）に置いて重なりを避ける。 */
+.subject-ring-label.q0 {
+  top: 33%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+}
+
+.subject-ring-label.q1 {
+  top: 67%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+}
+
+.subject-ring-label.q2 {
+  top: 67%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+}
+
+.subject-ring-label.q3 {
+  top: 33%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+}
+
+.subject-ring-label:hover,
+.subject-ring-label.is-active {
+  color: var(--ink);
+}
+
+.subject-ring-label.is-active {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.subject-ring-label:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+@media (max-width: 860px) {
+  .subject-ring {
+    padding: 32px 24px 36px;
+    gap: 26px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .subject-ring-copy {
+    min-height: 190px;
+  }
+
+  .subject-ring-wrap {
+    width: min(100%, 268px);
+  }
+
+  .subject-ring-label {
+    font-size: 0.68rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subject-ring-bg img,
+  .subject-ring-panel,
+  .subject-ring-label,
+  .subject-ring-wrap path {
+    transition: none;
+  }
 }
 
 .subject-overview-grid {
@@ -942,7 +1349,7 @@ em {
 
 .subject-overview-grid h3 {
   margin-top: 18px;
-  font-size: 1.12rem;
+  font-size: var(--fs-h4);
 }
 
 .subject-overview-grid p {
@@ -951,6 +1358,26 @@ em {
   color: var(--muted);
   font-size: 0.8rem;
   line-height: 1.7;
+}
+
+.path-photo-note {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 0.62rem;
+  line-height: 1.7;
+}
+
+.path-photo-note a {
+  color: inherit;
+  border-bottom: 1px solid rgba(102, 115, 124, 0.4);
+}
+
+.path-photo-note a:hover {
+  color: var(--ink);
+}
+
+.subject-photo-note {
+  margin-top: 14px;
 }
 
 .subject-overview-footer {
@@ -1005,8 +1432,8 @@ em {
 }
 
 .proof-item strong {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3-lg);
   font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 1;
@@ -1047,14 +1474,13 @@ em {
 
 .concern-grid article > span {
   color: var(--red);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 1rem;
 }
 
 .concern-grid h3 {
   margin-top: 38px;
-  font-size: 1.28rem;
-  letter-spacing: -0.02em;
+  font-size: var(--fs-h3);
 }
 
 .concern-grid p {
@@ -1075,16 +1501,52 @@ em {
 
 .path-card {
   display: flex;
+  position: relative;
   min-height: 430px;
   padding: 34px;
+  overflow: hidden;
   flex-direction: column;
   border: 1px solid var(--line);
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.38);
+  isolation: isolate;
   transition:
     transform 220ms ease,
     background 220ms ease,
     box-shadow 220ms ease;
+}
+
+/* カードの裏に関連写真を薄く敷きます。 */
+.path-card-media {
+  position: absolute;
+  z-index: -1;
+  overflow: hidden;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.path-card-media img {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  object-fit: cover;
+  filter: grayscale(0.45);
+  transform: scale(1.08);
+  transition:
+    opacity 620ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.path-card:hover .path-card-media img,
+.path-card:focus-visible .path-card-media img {
+  opacity: 0.13;
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .path-card-media img {
+    transition: opacity 200ms linear;
+  }
 }
 
 .path-card:hover {
@@ -1100,7 +1562,7 @@ em {
 }
 
 .path-card-top span {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 1.15rem;
 }
 
@@ -1112,9 +1574,7 @@ em {
 
 .path-card h3 {
   margin-top: 70px;
-  font-size: 1.65rem;
-  letter-spacing: -0.035em;
-  line-height: 1.35;
+  font-size: var(--fs-h3);
 }
 
 .path-card p {
@@ -1150,15 +1610,12 @@ em {
   padding-top: 30px;
   color: rgba(255, 255, 255, 0.55);
   border-top: 1px solid rgba(255, 255, 255, 0.18);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 1rem;
 }
 
 .story-preview h2 {
-  font-size: clamp(2.4rem, 4.7vw, 4.3rem);
-  font-weight: 640;
-  letter-spacing: -0.05em;
-  line-height: 1.16;
+  font-size: var(--fs-h2);
 }
 
 .story-preview-grid > div:last-child > p {
@@ -1183,10 +1640,7 @@ em {
 }
 
 .result-preview h2 {
-  font-size: clamp(2.25rem, 4.2vw, 3.7rem);
-  font-weight: 650;
-  letter-spacing: -0.045em;
-  line-height: 1.2;
+  font-size: var(--fs-h2);
 }
 
 .result-preview-copy > p {
@@ -1204,7 +1658,7 @@ em {
   padding: 14px 0;
   color: var(--ink-soft);
   border-bottom: 1px solid var(--line);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 0.92rem;
 }
 
@@ -1223,10 +1677,7 @@ em {
 }
 
 .home-plan-grid h2 {
-  font-size: clamp(2.3rem, 4.5vw, 4rem);
-  font-weight: 650;
-  letter-spacing: -0.05em;
-  line-height: 1.2;
+  font-size: var(--fs-h2);
 }
 
 .home-plan-grid > div:first-child .button {
@@ -1258,7 +1709,7 @@ em {
 
 .home-plan-list div span {
   color: #7fd3ef;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 0.86rem;
 }
 
@@ -1273,7 +1724,7 @@ em {
 
 .home-plan-list p strong {
   color: var(--white);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 1.4rem;
   font-weight: 500;
 }
@@ -1299,10 +1750,7 @@ em {
 
 .contact-band h2,
 .consultation-section h2 {
-  font-size: clamp(2.3rem, 4.6vw, 4.1rem);
-  font-weight: 650;
-  letter-spacing: -0.05em;
-  line-height: 1.2;
+  font-size: var(--fs-h2);
 }
 
 .contact-band-copy > p,
@@ -1405,10 +1853,7 @@ em {
 
 .page-hero h1 {
   max-width: 980px;
-  font-size: clamp(3.1rem, 6.4vw, 5.65rem);
-  font-weight: 650;
-  letter-spacing: -0.062em;
-  line-height: 1.09;
+  font-size: var(--fs-display);
 }
 
 .page-hero-copy > p:last-child {
@@ -1440,7 +1885,7 @@ em {
 }
 
 .sticky-head h2 {
-  font-size: clamp(2.1rem, 3.6vw, 3.2rem);
+  font-size: var(--fs-h2-sm);
 }
 
 .sticky-head > p:last-child {
@@ -1463,7 +1908,7 @@ em {
 
 .audience-list span {
   color: var(--blue);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
 }
 
 .audience-list p {
@@ -1504,7 +1949,7 @@ em {
 
 .pillar-number {
   color: #7fd3ef;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 1.05rem;
 }
 
@@ -1518,9 +1963,7 @@ em {
 
 .pillar-grid h3 {
   margin-top: 16px;
-  font-size: 1.65rem;
-  letter-spacing: -0.035em;
-  line-height: 1.4;
+  font-size: var(--fs-h3);
 }
 
 .pillar-grid h3 + p {
@@ -1581,12 +2024,11 @@ em {
 
 .method-list li > span {
   color: var(--blue);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
 }
 
 .method-list h3 {
-  font-size: 1.15rem;
-  letter-spacing: -0.015em;
+  font-size: var(--fs-h4);
 }
 
 .method-list p {
@@ -1617,8 +2059,7 @@ em {
 
 .scope-list h3 {
   font-family: var(--font-display-ja);
-  font-size: 1.25rem;
-  font-weight: 650;
+  font-size: var(--fs-h3);
 }
 
 .scope-list p {
@@ -1642,8 +2083,7 @@ em {
 
 .scope-subject-intro h3 {
   font-family: var(--font-display-ja);
-  font-size: 1.25rem;
-  font-weight: 650;
+  font-size: var(--fs-h3);
 }
 
 .scope-subject-intro p {
@@ -1719,7 +2159,7 @@ em {
 
 .program-example-grid > article > span {
   color: var(--blue);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
 }
 
 .program-example-grid > article > p {
@@ -1732,9 +2172,7 @@ em {
 
 .program-example-grid h3 {
   margin-top: 10px;
-  font-size: 1.3rem;
-  letter-spacing: -0.025em;
-  line-height: 1.45;
+  font-size: var(--fs-h3);
 }
 
 .program-example-grid small {
@@ -1786,7 +2224,7 @@ em {
 
 .boundary-columns h3 {
   margin-top: 28px;
-  font-size: 1.25rem;
+  font-size: var(--fs-h3);
 }
 
 .boundary-columns p {
@@ -1843,10 +2281,7 @@ em {
 
 .profile-copy h2 {
   max-width: 780px;
-  font-size: clamp(2.4rem, 4.7vw, 4.1rem);
-  font-weight: 650;
-  letter-spacing: -0.05em;
-  line-height: 1.18;
+  font-size: var(--fs-h2);
 }
 
 .profile-copy .large-copy {
@@ -1915,7 +2350,7 @@ em {
   border-radius: 50%;
   background: var(--white);
   place-items: center;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 0.75rem;
 }
 
@@ -1938,9 +2373,7 @@ em {
 
 .story-list h3 {
   margin-top: 20px;
-  font-size: clamp(1.45rem, 2.7vw, 2.15rem);
-  letter-spacing: -0.035em;
-  line-height: 1.4;
+  font-size: var(--fs-h3-lg);
 }
 
 .story-list article > div:last-child > p:last-child {
@@ -2030,8 +2463,8 @@ em {
 
 .result-summary strong {
   margin-top: 18px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(3rem, 6vw, 5.2rem);
+  font-family: var(--font-serif);
+  font-size: var(--fs-number);
   font-weight: 500;
   letter-spacing: -0.05em;
   line-height: 1;
@@ -2146,7 +2579,7 @@ em {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(14px);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 0.75rem;
 }
 
@@ -2173,14 +2606,11 @@ em {
 
 .university-card h3 {
   font-family: var(--font-display-ja);
-  font-size: clamp(1.62rem, 3vw, 2.55rem);
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 1.08;
+  font-size: var(--fs-h3-lg);
 }
 
 .university-card:first-child h3 {
-  font-size: clamp(2.1rem, 4.7vw, 4rem);
+  font-size: var(--fs-h3-lg);
 }
 
 .university-card strong {
@@ -2214,6 +2644,163 @@ em {
 
 .university-card small a:hover {
   color: rgba(255, 255, 255, 0.9);
+}
+
+/* キャンパスシーン: JSが無い / 動きを控える設定では従来のカードグリッドとして表示します。 */
+.campus-stage {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.campus-rail {
+  display: none;
+}
+
+html.scenes-ready .campus-scene {
+  position: relative;
+  min-height: calc(100svh + var(--scene-steps, 1) * 66svh);
+}
+
+html.scenes-ready .campus-scene-sticky {
+  display: grid;
+  position: sticky;
+  top: max(88px, 10svh);
+  height: min(76svh, 640px);
+  gap: 18px;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+html.scenes-ready .campus-stage {
+  display: block;
+  position: relative;
+  height: 100%;
+}
+
+html.scenes-ready .campus-frame,
+html.scenes-ready .campus-frame:first-child {
+  position: absolute;
+  min-height: 0;
+  inset: 0;
+  grid-column: auto;
+  opacity: 0;
+  transform: translateY(26px) scale(0.965);
+  pointer-events: none;
+  transition:
+    opacity 720ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 720ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html.scenes-ready .campus-frame.is-past {
+  opacity: 0;
+  transform: translateY(-22px) scale(1.03);
+}
+
+html.scenes-ready .campus-frame.is-active {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+html.scenes-ready .campus-frame .university-card-content {
+  height: 100%;
+}
+
+/* 表示中の1枚だけ、スクロール量にそのまま追従してゆっくり引きます。 */
+html.scenes-ready .campus-frame.is-active .university-card-media img {
+  transform: scale(calc(1.08 - 0.08 * var(--frame-progress, 0)));
+  transition: none;
+}
+
+html.scenes-ready .campus-rail {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  gap: 12px;
+  grid-template-columns: repeat(var(--scene-steps, 1), minmax(0, 1fr));
+  list-style: none;
+}
+
+html.scenes-ready .campus-rail button {
+  display: grid;
+  width: 100%;
+  padding: 0;
+  gap: 5px;
+  color: var(--muted);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: color 420ms ease;
+}
+
+html.scenes-ready .campus-rail li.is-active button,
+html.scenes-ready .campus-rail button:hover {
+  color: var(--ink);
+}
+
+html.scenes-ready .campus-rail button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+html.scenes-ready .campus-rail span {
+  font-size: 0.56rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+}
+
+html.scenes-ready .campus-rail b {
+  font-size: 0.7rem;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+html.scenes-ready .campus-rail i {
+  display: block;
+  position: relative;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(13, 41, 64, 0.12);
+}
+
+html.scenes-ready .campus-rail i::after {
+  position: absolute;
+  width: calc(var(--fill, 0) * 100%);
+  inset: 0;
+  border-radius: inherit;
+  background: var(--blue);
+  content: "";
+  transition: width 380ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* 自動送り中の1本だけ、次の切り替えまでの時間をかけて伸ばします。 */
+html.scenes-ready .campus-scene.is-playing .campus-rail li.is-active i::after {
+  transition: width var(--autoplay-ms, 4200ms) linear;
+}
+
+@media (max-width: 760px) {
+  html.scenes-ready .campus-scene {
+    min-height: calc(100svh + var(--scene-steps, 1) * 56svh);
+  }
+
+  html.scenes-ready .campus-scene-sticky {
+    top: 78px;
+    height: min(72svh, 540px);
+    gap: 14px;
+  }
+
+  html.scenes-ready .campus-rail {
+    gap: 7px;
+  }
+
+  html.scenes-ready .campus-rail b {
+    display: none;
+  }
 }
 
 .university-photo-note {
@@ -2257,11 +2844,11 @@ em {
 
 .experience-points span {
   color: #7fd3ef;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
 }
 
 .experience-points h3 {
-  font-size: 1rem;
+  font-size: var(--fs-h4);
 }
 
 .experience-points p {
@@ -2329,7 +2916,7 @@ em {
 
 .plan-topline > span {
   color: var(--blue);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
 }
 
 .featured-plan .plan-topline > span {
@@ -2349,7 +2936,7 @@ em {
 .plan-en {
   margin-top: 50px;
   color: var(--blue);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 1rem;
 }
 
@@ -2359,8 +2946,7 @@ em {
 
 .plan-grid h3 {
   margin-top: 4px;
-  font-size: clamp(1.55rem, 3vw, 2.2rem);
-  letter-spacing: -0.035em;
+  font-size: var(--fs-h3-lg);
 }
 
 .plan-price {
@@ -2380,8 +2966,8 @@ em {
 }
 
 .plan-price strong {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(3.2rem, 6vw, 5.25rem);
+  font-family: var(--font-serif);
+  font-size: var(--fs-number);
   font-weight: 500;
   letter-spacing: -0.06em;
   line-height: 1;
@@ -2498,7 +3084,7 @@ em {
 }
 
 .comparison-list h3 {
-  font-size: 0.86rem;
+  font-size: var(--fs-label);
 }
 
 .comparison-list p {
@@ -2521,10 +3107,7 @@ em {
 }
 
 .trial-grid h2 {
-  font-size: clamp(2.3rem, 4.5vw, 4rem);
-  font-weight: 650;
-  letter-spacing: -0.05em;
-  line-height: 1.2;
+  font-size: var(--fs-h2);
 }
 
 .trial-grid > div:last-child > p {
@@ -2560,7 +3143,7 @@ em {
 
 .voice-grid article > span {
   color: #7fd3ef;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: 3.3rem;
   line-height: 0.8;
 }
@@ -2610,9 +3193,86 @@ em {
 }
 
 .process-list li {
+  position: relative;
   min-height: 340px;
   padding: 30px 28px;
+  overflow: hidden;
   border-left: 1px solid var(--line);
+  isolation: isolate;
+}
+
+.process-list li:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -4px;
+}
+
+/* 裏に薄く写真を敷き、ホバー/フォーカスで浮かび上がらせる。 */
+.process-media {
+  position: absolute;
+  z-index: -1;
+  overflow: hidden;
+  inset: 0;
+}
+
+.process-media img {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  object-fit: cover;
+  filter: grayscale(0.45);
+  transform: scale(1.09);
+  transition:
+    opacity 620ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.process-list li:hover .process-media img,
+.process-list li:focus-visible .process-media img {
+  opacity: 0.15;
+  transform: scale(1);
+}
+
+.process-detail {
+  display: grid;
+  overflow: hidden;
+  grid-template-rows: minmax(0, 0fr);
+  opacity: 0;
+  transition:
+    grid-template-rows 480ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 260ms ease;
+}
+
+.process-detail > p {
+  min-height: 0;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  line-height: 1.85;
+}
+
+.process-list li:hover .process-detail,
+.process-list li:focus-visible .process-detail {
+  grid-template-rows: minmax(0, 1fr);
+  opacity: 1;
+  transition:
+    grid-template-rows 480ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 380ms ease 120ms;
+}
+
+@media (hover: none) {
+  .process-detail {
+    grid-template-rows: minmax(0, 1fr);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-media img,
+  .process-detail {
+    transition-duration: 200ms;
+  }
 }
 
 .process-list li:first-child {
@@ -2626,7 +3286,7 @@ em {
 
 .process-list li > span {
   color: var(--blue);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
 }
 
 .process-list li > div {
@@ -2640,7 +3300,7 @@ em {
 
 .process-list h3 {
   margin-top: 10px;
-  font-size: 1.3rem;
+  font-size: var(--fs-h3);
 }
 
 .process-list p {
@@ -2750,10 +3410,7 @@ em {
 .closing-note h2 {
   margin-top: 30px;
   font-family: var(--font-display-ja);
-  font-size: clamp(2rem, 4.2vw, 3.7rem);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 1.45;
+  font-size: var(--fs-h2);
 }
 
 .closing-note-inner > p:last-child {
@@ -2866,7 +3523,6 @@ html.motion-ready .reveal-target.is-visible {
 
 @media (max-width: 1280px) {
   .hero-copy h1 {
-    font-size: clamp(3.25rem, 5.4vw, 4.25rem);
   }
 }
 
@@ -2889,7 +3545,6 @@ html.motion-ready .reveal-target.is-visible {
   }
 
   .hero-copy h1 {
-    font-size: clamp(3rem, 6.8vw, 4.3rem);
   }
 
   .proof-grid {
@@ -3114,7 +3769,6 @@ html.motion-ready .reveal-target.is-visible {
   }
 
   .hero-copy h1 {
-    font-size: clamp(2.7rem, 11vw, 4.1rem);
   }
 
   .portrait-card {
@@ -3228,7 +3882,6 @@ html.motion-ready .reveal-target.is-visible {
   }
 
   .page-hero h1 {
-    font-size: clamp(2.75rem, 11vw, 4.4rem);
   }
 
   .scope-list article {
@@ -3350,10 +4003,6 @@ html.motion-ready .reveal-target.is-visible {
     padding: 28px;
   }
 
-  .university-card:first-child h3 {
-    font-size: clamp(2rem, 8vw, 3rem);
-  }
-
   .experience-points article {
     grid-template-columns: 45px 1fr;
   }
@@ -3375,20 +4024,20 @@ html.motion-ready .reveal-target.is-visible {
 @media (max-width: 560px) {
   :root {
     --shell: calc(100% - 28px);
+    --fs-display: clamp(2.05rem, 9.4vw, 2.6rem);
+    --fs-h2: clamp(1.75rem, 7.4vw, 2.15rem);
+    --fs-h2-sm: clamp(1.6rem, 6.6vw, 1.95rem);
+    --fs-h3-lg: clamp(1.45rem, 5.8vw, 1.85rem);
+    --fs-h3: 1.2rem;
+    --fs-number: clamp(2.4rem, 9vw, 3.1rem);
   }
 
   .wordmark strong {
     font-size: 0.78rem;
   }
 
-  .hero-copy h1 {
-    font-size: clamp(2.05rem, 9.5vw, 2.35rem);
-    line-height: 1.14;
-  }
-
+  .hero-copy h1,
   .page-hero h1 {
-    font-size: clamp(2rem, 8.6vw, 2.2rem);
-    line-height: 1.18;
   }
 
   .page-title-line,
@@ -3406,15 +4055,10 @@ html.motion-ready .reveal-target.is-visible {
     display: none;
   }
 
-  .hero-line,
-  .hero-mobile-tail {
+  .hero-line {
     display: block;
     width: fit-content;
     white-space: nowrap;
-  }
-
-  .hero-mobile-tail {
-    margin-left: 0;
   }
 
   .hero-actions {
@@ -4143,6 +4787,167 @@ html.motion-ready .reveal-target.is-visible {
 .consultation-summary-cta:hover {
   background: var(--blue);
   transform: translateY(-1px);
+}
+
+button.consultation-summary-cta {
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 760;
+}
+
+button.consultation-summary-cta:disabled {
+  cursor: progress;
+  opacity: 0.6;
+  transform: none;
+}
+
+.consultation-step-form {
+  display: grid;
+  margin-top: 2px;
+  gap: 8px;
+}
+
+.consultation-step-form label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.consultation-step-form input,
+.consultation-step-form textarea {
+  width: 100%;
+  resize: none;
+  padding: 11px 13px;
+  color: var(--ink);
+  border: 1px solid rgba(13, 41, 64, 0.15);
+  border-radius: 12px;
+  outline: 0;
+  background: var(--white);
+  font: inherit;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.consultation-step-form input:focus-visible,
+.consultation-step-form textarea:focus-visible {
+  border-color: var(--blue);
+  outline: 2px solid rgba(5, 132, 181, 0.35);
+  outline-offset: 1px;
+}
+
+.consultation-step-form input::placeholder,
+.consultation-step-form textarea::placeholder {
+  color: #929ba1;
+}
+
+.consultation-step-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.consultation-step-next {
+  min-height: 36px;
+  padding: 7px 18px;
+  color: var(--white);
+  border: 0;
+  border-radius: 999px;
+  background: var(--navy);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 760;
+  transition: background 150ms ease;
+}
+
+.consultation-step-next:hover:not(:disabled) {
+  background: var(--blue);
+}
+
+.consultation-step-next:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.consultation-step-secondary {
+  padding: 2px 0;
+  color: var(--muted);
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.consultation-step-back {
+  justify-self: start;
+  margin-top: 2px;
+  padding: 2px 0;
+  color: var(--muted);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.consultation-step-back:hover {
+  color: var(--blue);
+}
+
+.consultation-step-next:focus-visible,
+.consultation-step-secondary:focus-visible,
+.consultation-step-back:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.consultation-chat-sent {
+  margin-top: 14px;
+  padding: 12px 13px;
+  color: #1d4b3a;
+  border: 1px solid rgba(29, 75, 58, 0.2);
+  border-radius: 12px;
+  background: rgba(29, 75, 58, 0.07);
+  font-size: 0.68rem;
+  line-height: 1.65;
+}
+
+.consultation-chat-sent strong {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 780;
+}
+
+.consultation-chat-sent .consultation-summary-cta {
+  margin-top: 10px;
+}
+
+.consultation-chat-error a {
+  display: inline-block;
+  margin-top: 8px;
+  color: inherit;
+  border-bottom: 1px solid currentColor;
+  font-weight: 760;
+}
+
+.consultation-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .consultation-restart {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import {
   ContactBand,
   PageHero,
@@ -68,52 +69,77 @@ export default function ResultsPage() {
               </div>
               <p>2023年 / 本人の出願結果</p>
             </div>
-            <div className="university-list">
-              {universities.map((university, index) => (
-                <article className="university-card" key={university.name}>
-                  <div className="university-card-media">
-                    <img
-                      src={university.image}
-                      alt={university.imageAlt}
-                      width="1600"
-                      height="1000"
-                      loading={index === 0 ? "eager" : "lazy"}
-                      fetchPriority={index === 0 ? "high" : undefined}
-                      style={{ objectPosition: university.imagePosition }}
-                    />
-                    <span aria-hidden="true" />
-                  </div>
-                  <div className="university-card-content">
-                    <div className="university-card-meta">
-                      <span>{String(index + 1).padStart(2, "0")}</span>
-                      <p>2023 PERSONAL OFFER</p>
-                    </div>
-                    <div className="university-card-copy">
-                      <p>{university.detail}</p>
-                    <h3>{university.name}</h3>
-                      <strong>{university.offer}</strong>
-                      <small>
-                        Photo:{" "}
-                        <a
-                          href={university.photoSource}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {university.photoAuthor}
-                        </a>
-                        {" / "}
-                        <a
-                          href={university.photoLicenseUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {university.photoLicense}
-                        </a>
-                      </small>
-                    </div>
-                  </div>
-                </article>
-              ))}
+            <div
+              className="campus-scene"
+              data-scene
+              data-scene-steps={universities.length}
+              data-scene-autoplay="4200"
+              style={{ "--scene-steps": universities.length } as CSSProperties}
+            >
+              <div className="campus-scene-sticky">
+                <div className="campus-stage">
+                  {universities.map((university, index) => (
+                    <article
+                      className="university-card campus-frame"
+                      data-scene-frame
+                      key={university.name}
+                    >
+                      <div className="university-card-media">
+                        <img
+                          src={university.image}
+                          alt={university.imageAlt}
+                          width="1600"
+                          height="1000"
+                          loading={index === 0 ? "eager" : "lazy"}
+                          fetchPriority={index === 0 ? "high" : undefined}
+                          style={{ objectPosition: university.imagePosition }}
+                        />
+                        <span aria-hidden="true" />
+                      </div>
+                      <div className="university-card-content">
+                        <div className="university-card-meta">
+                          <span>{String(index + 1).padStart(2, "0")}</span>
+                          <p>2023 PERSONAL OFFER</p>
+                        </div>
+                        <div className="university-card-copy">
+                          <p>{university.detail}</p>
+                          <h3>{university.name}</h3>
+                          <strong>{university.offer}</strong>
+                          <small>
+                            Photo:{" "}
+                            <a
+                              href={university.photoSource}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {university.photoAuthor}
+                            </a>
+                            {" / "}
+                            <a
+                              href={university.photoLicenseUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {university.photoLicense}
+                            </a>
+                          </small>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+                <ol className="campus-rail" aria-label="大学を切り替える">
+                  {universities.map((university, index) => (
+                    <li key={university.name} data-scene-dot>
+                      <button type="button">
+                        <span>{String(index + 1).padStart(2, "0")}</span>
+                        <b>{university.railLabel}</b>
+                        <i aria-hidden="true" />
+                      </button>
+                    </li>
+                  ))}
+                </ol>
+              </div>
             </div>
             <p className="university-photo-note">
               Campus photography via Wikimedia Commons. 写真は表示上のトリミングと

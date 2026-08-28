@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { ContactBand, SiteFooter, SiteHeader } from "./_components/SiteChrome";
 import { SiteIntro } from "./_components/SiteIntro";
-import { concerns, plans, subjectAreas } from "./_data/site";
+import {
+  concerns,
+  plans,
+  subjectAreas,
+} from "./_data/site";
 
 export const metadata: Metadata = {
   title: "トップ",
@@ -16,6 +20,12 @@ const paths = [
     title: "何を、どう支えるのか",
     text: "NCEA、海外大学進学、留学生活。3つの領域を、一人ひとりの目標に合わせて組み合わせます。",
     href: "/support",
+    image: "/scenes/support.jpg",
+    photoAuthor: "Heidy Garcia",
+    photoLicense: "CC BY 4.0",
+    photoLicenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+    photoSource:
+      "https://commons.wikimedia.org/wiki/File:Classmate_Taking_Notes_While_Instructor_Explains_Concept.jpg",
     link: "サポート内容を見る",
   },
   {
@@ -24,6 +34,12 @@ const paths = [
     title: "なぜ、この支援をするのか",
     text: "Year 11で行き詰まったところから、学び方を組み直した本人の経験と指導への考え方。",
     href: "/story",
+    image: "/scenes/story.jpg",
+    photoAuthor: "Heidy Garcia",
+    photoLicense: "CC BY 4.0",
+    photoLicenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+    photoSource:
+      "https://commons.wikimedia.org/wiki/File:Smiling_Student_Working_on_Assignments_at_Desk.jpg",
     link: "本人の経験を読む",
   },
   {
@@ -32,8 +48,23 @@ const paths = [
     title: "経験を裏づけるもの",
     text: "2023年に本人が出願した5大学からの合格・奨学金オファーを、条件とともに掲載しています。",
     href: "/results",
+    image: "/scenes/results.jpg",
+    photoAuthor: "Panamitsu",
+    photoLicense: "CC BY-SA 4.0",
+    photoLicenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+    photoSource:
+      "https://commons.wikimedia.org/wiki/File:Massey_University_graduation_procession.jpg",
     link: "実績を確認する",
   },
+];
+
+
+// 中心 110,110 / 半径 88 の円を4分割した円弧（隙間8度）。
+const subjectRingArcs = [
+  "M 116.14 22.21 A 88 88 0 0 1 197.79 103.86",
+  "M 197.79 116.14 A 88 88 0 0 1 116.14 197.79",
+  "M 103.86 197.79 A 88 88 0 0 1 22.21 116.14",
+  "M 22.21 103.86 A 88 88 0 0 1 103.86 22.21",
 ];
 
 export default function Home() {
@@ -55,12 +86,11 @@ export default function Home() {
                 NCEA &amp; INTERNATIONAL UNIVERSITY MENTOR
               </p>
               <h1 id="hero-title">
-                <span className="hero-line">つまずいた経験から、</span>
+                <span className="hero-line">つまずきを、</span>
                 <br className="hero-break" />
                 <span className="hero-line">
-                  <em>進める道筋</em>を、
+                  <em>進める道筋</em>に。
                 </span>
-                <span className="hero-mobile-tail">一緒に。</span>
               </h1>
               <p className="hero-lead">
                 NCEA学習、海外大学進学、留学生活を別々に考えず、
@@ -116,6 +146,63 @@ export default function Home() {
                 現在地と目標に合わせて、必要な内容を一緒に組み立てます。
               </p>
             </div>
+            <div className="subject-ring" data-subject-ring>
+              <div className="subject-ring-bg" aria-hidden="true">
+                {subjectAreas.map((area) => (
+                  <img
+                    key={area.category}
+                    src={area.ringImage}
+                    alt=""
+                    loading="lazy"
+                    data-ring-image
+                  />
+                ))}
+              </div>
+              <div className="subject-ring-copy">
+                {subjectAreas.map((area) => (
+                  <article
+                    className="subject-ring-panel"
+                    data-ring-panel
+                    key={area.category}
+                  >
+                    <p className="eyebrow">{area.category}</p>
+                    <h3>{area.title}</h3>
+                    <p className="subject-ring-subjects">
+                      {area.subjects.join(" / ")}
+                    </p>
+                    <p className="subject-ring-detail">{area.detail}</p>
+                  </article>
+                ))}
+              </div>
+              <div className="subject-ring-wrap">
+                <svg viewBox="0 0 220 220" aria-hidden="true">
+                  {subjectRingArcs.map((path) => (
+                    <path key={path} d={path} data-ring-arc />
+                  ))}
+                  {subjectRingArcs.map((path) => (
+                    <path
+                      key={`hit-${path}`}
+                      d={path}
+                      className="subject-ring-hit"
+                      data-ring-hit
+                    />
+                  ))}
+                </svg>
+                <span className="subject-ring-center" aria-hidden="true">
+                  対応科目
+                </span>
+                {subjectAreas.map((area, index) => (
+                  <button
+                    type="button"
+                    className={`subject-ring-label q${index}`}
+                    data-ring-label
+                    key={area.category}
+                  >
+                    {area.title}
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className="subject-overview-grid">
               {subjectAreas.map((area) => (
                 <article key={area.category}>
@@ -125,6 +212,22 @@ export default function Home() {
                 </article>
               ))}
             </div>
+            <p className="path-photo-note subject-photo-note">
+              背景写真:{" "}
+              {subjectAreas.map((area, index) => (
+                <span key={area.category}>
+                  {index > 0 && " / "}
+                  <a href={area.photoSource} target="_blank" rel="noreferrer">
+                    {area.photoAuthor}
+                  </a>
+                  {" "}
+                  <a href={area.photoLicenseUrl} target="_blank" rel="noreferrer">
+                    {area.photoLicense}
+                  </a>
+                </span>
+              ))}
+              {" "}via Wikimedia Commons
+            </p>
             <div className="subject-overview-footer">
               <p>学年・Level・課題内容は、初回相談で確認します。</p>
               <a className="text-link" href="/support#program-examples">
@@ -191,6 +294,9 @@ export default function Home() {
             <div className="path-grid">
               {paths.map((path) => (
                 <a className="path-card" href={path.href} key={path.number}>
+                  <span className="path-card-media" aria-hidden="true">
+                    <img src={path.image} alt="" loading="lazy" />
+                  </span>
                   <div className="path-card-top">
                     <span>{path.number}</span>
                     <small>{path.label}</small>
@@ -204,6 +310,22 @@ export default function Home() {
                 </a>
               ))}
             </div>
+            <p className="path-photo-note">
+              背景写真:{" "}
+              {paths.map((path, index) => (
+                <span key={path.number}>
+                  {index > 0 && " / "}
+                  <a href={path.photoSource} target="_blank" rel="noreferrer">
+                    {path.photoAuthor}
+                  </a>
+                  {" "}
+                  <a href={path.photoLicenseUrl} target="_blank" rel="noreferrer">
+                    {path.photoLicense}
+                  </a>
+                </span>
+              ))}
+              {" "}via Wikimedia Commons
+            </p>
           </div>
         </section>
 

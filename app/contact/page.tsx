@@ -52,16 +52,38 @@ export default function ContactPage() {
             </div>
             <ol className="process-list">
               {steps.map((step) => (
-                <li key={step.number}>
+                <li key={step.number} tabIndex={0}>
+                  <span className="process-media" aria-hidden="true">
+                    <img src={step.image} alt="" loading="lazy" />
+                  </span>
                   <span>{step.number}</span>
                   <div>
                     <small>{step.meta}</small>
                     <h3>{step.title}</h3>
                     <p>{step.text}</p>
+                    <div className="process-detail">
+                      <p>{step.detail}</p>
+                    </div>
                   </div>
                 </li>
               ))}
             </ol>
+            <p className="path-photo-note">
+              背景写真:{" "}
+              {steps.map((step, index) => (
+                <span key={step.number}>
+                  {index > 0 && " / "}
+                  <a href={step.photoSource} target="_blank" rel="noreferrer">
+                    {step.photoAuthor}
+                  </a>
+                  {" "}
+                  <a href={step.photoLicenseUrl} target="_blank" rel="noreferrer">
+                    {step.photoLicense}
+                  </a>
+                </span>
+              ))}
+              {" "}via Wikimedia Commons
+            </p>
           </div>
         </section>
 

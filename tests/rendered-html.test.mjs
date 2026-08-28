@@ -26,7 +26,7 @@ async function render(pathname = "/") {
 }
 
 const routes = [
-  ["/", "つまずいた経験から", "日本から世界へ、選択肢を無限大に。"],
+  ["/", "つまずきを、", "日本から世界へ、選択肢を無限大に。"],
   ["/support", "学び方と進み方", "答えを教えるだけでなく、進める道筋をつくる。"],
   ["/plans", "2つのプラン", "学び方が変われば、結果までの距離は変えられる。"],
   ["/story", "立て直した過程", "遠回りした経験は、誰かの最短ルートになる。"],
@@ -45,11 +45,9 @@ for (const [pathname, expected, introQuote] of routes) {
     assert.match(html, new RegExp(expected));
     assert.ok(html.includes(introQuote));
     assert.match(html, /class="consultation-chat"/);
-    assert.match(html, /かんたん事前相談/);
+    assert.match(html, /個別戦略カウンセリング申込/);
     assert.match(html, /質問に答えず本人へ相談する/);
-    assert.match(html, /生徒本人/);
-    assert.match(html, /生徒・保護者で一緒に/);
-    assert.match(html, /どなたからのご相談ですか/);
+    assert.match(html, /お名前（フルネーム）を教えてください/);
     assert.match(html, /href="\/support"/);
     assert.match(html, /href="\/plans"/);
     assert.match(html, /href="\/story"/);

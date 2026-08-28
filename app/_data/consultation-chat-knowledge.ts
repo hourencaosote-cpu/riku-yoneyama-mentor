@@ -14,3 +14,29 @@ export const approvedConsultationAnswerGuide = {
   plans:
     "スタンダードは月額18,000円・週1回60分、アドバンスは月額33,000円・週1回120分です。無料相談、個別プラン設計、1〜2週間の体験・確認を経てサポートを開始します。",
 } as const;
+
+export type ApprovedConsultationTopic = keyof typeof approvedConsultationAnswerGuide;
+
+/**
+ * 「講師に求めること」の選択肢から、対応する案内文を引き当てます。
+ * 「その他」など対応表にない回答では案内文を表示しません。
+ */
+const supportRequestGuideMap: Record<string, ApprovedConsultationTopic> = {
+  "遅れている課題やボロボロの成績を、なんとか立て直してほしい。": "ncea",
+  "学校の課題の意図や、エッセイの書き方を日本語で噛み砕いて教えてほしい。":
+    "subjects",
+  "一人だとサボるので、毎週の計画を一緒に立てて進捗を確認してほしい。":
+    "studyAbroadLife",
+  "メルボルン大学合格や奨学金獲得などの「勝ち方」を伝授してほしい。":
+    "university",
+  "海外大学でトップを獲るためのマインドを教えてほしい。": "university",
+};
+
+export function findApprovedConsultationGuide(supportRequest?: string) {
+  if (!supportRequest) {
+    return null;
+  }
+
+  const topic = supportRequestGuideMap[supportRequest];
+  return topic ? approvedConsultationAnswerGuide[topic] : null;
+}
