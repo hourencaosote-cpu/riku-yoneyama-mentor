@@ -70,13 +70,7 @@ const subjectRingArcs = [
 export default function Home() {
   return (
     <>
-      <SiteIntro
-        number="01"
-        section="WELCOME"
-        quote="日本から世界へ、選択肢を無限大に。"
-        detail="NCEA・海外大学進学・留学生活を、一つの道筋に。"
-        tone="sky"
-      />
+      <SiteIntro />
       <SiteHeader current="/" />
       <main>
         <section className="home-hero" aria-labelledby="hero-title">

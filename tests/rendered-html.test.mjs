@@ -26,15 +26,15 @@ async function render(pathname = "/") {
 }
 
 const routes = [
-  ["/", "つまずきを、", "日本から世界へ、選択肢を無限大に。"],
-  ["/support", "学び方と進み方", "答えを教えるだけでなく、進める道筋をつくる。"],
-  ["/plans", "2つのプラン", "学び方が変われば、結果までの距離は変えられる。"],
-  ["/story", "立て直した過程", "遠回りした経験は、誰かの最短ルートになる。"],
-  ["/results", "何の実績か", "才能ではなく、再現できる戦略で前へ。"],
-  ["/contact", "悩みを次の一歩", "最初の一歩は、悩みを言葉にすることから。"],
+  ["/", "つまずきを、"],
+  ["/support", "学び方と進み方"],
+  ["/plans", "2つのプラン"],
+  ["/story", "立て直した過程"],
+  ["/results", "何の実績か"],
+  ["/contact", "悩みを次の一歩"],
 ];
 
-for (const [pathname, expected, introQuote] of routes) {
+for (const [pathname, expected] of routes) {
   test(`server-renders ${pathname}`, async () => {
     const response = await render(pathname);
     assert.equal(response.status, 200);
@@ -43,7 +43,8 @@ for (const [pathname, expected, introQuote] of routes) {
     const html = await response.text();
     assert.match(html, /<html lang="ja">/i);
     assert.match(html, new RegExp(expected));
-    assert.ok(html.includes(introQuote));
+    assert.match(html, /src="\/rixa-logo\.png"/);
+    assert.doesNotMatch(html, /EDUCATION PATHWAYS|本文を見る/);
     assert.match(html, /class="consultation-chat"/);
     assert.match(html, /個別戦略カウンセリング申込/);
     assert.match(html, /質問に答えず本人へ相談する/);

@@ -37,13 +37,7 @@ const story = [
 export default function StoryPage() {
   return (
     <>
-      <SiteIntro
-        number="04"
-        section="MY STORY"
-        quote="遠回りした経験は、誰かの最短ルートになる。"
-        detail="行き詰まりから学び方を組み直した、本人の原点。"
-        tone="indigo"
-      />
+      <SiteIntro />
       <SiteHeader current="/story" />
       <main>
         <PageHero

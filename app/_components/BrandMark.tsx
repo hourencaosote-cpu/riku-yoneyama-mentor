@@ -12,14 +12,7 @@ export function BrandMark({
       className={`brand-mark brand-mark-${size}${inverse ? " brand-mark-inverse" : ""}`}
       aria-hidden="true"
     >
-      <span className="brand-mark-frame" />
-      <span className="brand-mark-orbit" />
-      <span className="brand-mark-monogram">
-        <span>R</span>
-        <span>Y</span>
-      </span>
-      <span className="brand-mark-path" />
-      <span className="brand-mark-destination" />
+      <img className="brand-mark-image" src="/rixa-logo.png" alt="" />
     </span>
   );
 }

@@ -5,29 +5,14 @@ import { BrandMark } from "./BrandMark";
 
 type IntroPhase = "checking" | "visible" | "leaving" | "hidden";
 
-const INTRO_SEEN_KEY = "riku-yoneyama:intro-seen";
+const INTRO_SEEN_KEY = "riku-yoneyama:intro-seen:rixa-v4";
 
-type SiteIntroProps = {
-  number: string;
-  section: string;
-  quote: string;
-  detail: string;
-  tone: "sky" | "gold" | "coral" | "indigo" | "teal" | "sand";
-};
-
-export function SiteIntro({
-  number,
-  section,
-  quote,
-  detail,
-  tone,
-}: SiteIntroProps) {
+export function SiteIntro() {
   const [phase, setPhase] = useState<IntroPhase>("checking");
 
   useEffect(() => {
     try {
       if (window.sessionStorage.getItem(INTRO_SEEN_KEY) === "true") {
-        setPhase("hidden");
         document.body.classList.remove("intro-active");
         return;
       }
@@ -42,8 +27,8 @@ export function SiteIntro({
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    setPhase("visible");
     document.body.classList.add("intro-active");
+    const visibleTimer = window.setTimeout(() => setPhase("visible"), 0);
     const leaveTimer = window.setTimeout(
       () => setPhase("leaving"),
       reducedMotion ? 60 : 1650,
@@ -57,6 +42,7 @@ export function SiteIntro({
     );
 
     return () => {
+      window.clearTimeout(visibleTimer);
       window.clearTimeout(leaveTimer);
       window.clearTimeout(hideTimer);
       document.body.classList.remove("intro-active");
@@ -77,32 +63,19 @@ export function SiteIntro({
 
   return (
     <div
-      className={`site-intro site-intro-${tone}${phase === "leaving" ? " site-intro-leaving" : ""}`}
-      aria-label={`${section}ページの紹介`}
+      className={`site-intro${phase === "leaving" ? " site-intro-leaving" : ""}`}
+      aria-label="RIXA ロゴ"
     >
-      <div className="intro-atmosphere" aria-hidden="true" />
       <div className="intro-grid">
-        <div className="intro-brand-panel">
-          <BrandMark size="display" inverse />
-          <div className="intro-brand-copy">
-            <strong>RIKU YONEYAMA</strong>
-            <span>EDUCATION PATHWAYS</span>
-          </div>
-        </div>
-        <span className="intro-divider" aria-hidden="true" />
-        <div className="intro-message">
-          <p className="intro-section">
-            <span>{number}</span>
-            {section}
-          </p>
-          <p className="intro-catchcopy">{quote}</p>
-          <p className="intro-detail">{detail}</p>
-        </div>
+        <button
+          type="button"
+          className="intro-logo-button"
+          onClick={skip}
+          aria-label="サイトを表示する"
+        >
+          <BrandMark size="display" />
+        </button>
       </div>
-      <button type="button" className="intro-skip" onClick={skip}>
-        本文を見る
-        <span aria-hidden="true">↘</span>
-      </button>
     </div>
   );
 }

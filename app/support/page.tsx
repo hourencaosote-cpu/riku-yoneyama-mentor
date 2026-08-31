@@ -35,13 +35,7 @@ const subjectGroups = [
 export default function SupportPage() {
   return (
     <>
-      <SiteIntro
-        number="02"
-        section="SUPPORT"
-        quote="答えを教えるだけでなく、進める道筋をつくる。"
-        detail="成績・進路・留学生活を切り離さず、今必要な行動へ。"
-        tone="gold"
-      />
+      <SiteIntro />
       <SiteHeader current="/support" />
       <main>
         <PageHero

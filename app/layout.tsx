@@ -37,8 +37,8 @@ export async function generateMetadata(): Promise<Metadata> {
       "米山陸",
     ],
     icons: {
-      icon: "/favicon.svg",
-      shortcut: "/favicon.svg",
+      icon: "/rixa-logo.png",
+      shortcut: "/rixa-logo.png",
     },
     openGraph: {
       type: "website",

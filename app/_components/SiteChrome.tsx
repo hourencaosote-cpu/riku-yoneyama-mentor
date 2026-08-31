@@ -12,7 +12,6 @@ export function SiteHeader({ current = "/" }: SiteHeaderProps) {
       <div className="header-inner">
         <a className="wordmark" href="/" aria-label="トップページへ">
           <BrandMark />
-          <strong>Riku Yoneyama</strong>
         </a>
 
         <nav className="desktop-nav" aria-label="メインナビゲーション">
