@@ -5430,3 +5430,474 @@ button.consultation-summary-cta:disabled {
     width: 46px;
   }
 }
+
+/* RIXA monochrome redesign */
+:root {
+  --paper: #f3f3ef;
+  --paper-deep: #e7e7e1;
+  --surface: #ffffff;
+  --ink: #0c0d0e;
+  --ink-soft: #303236;
+  --muted: #6c6e72;
+  --line: rgba(12, 13, 14, 0.17);
+  --navy: #141619;
+  --navy-deep: #08090a;
+  --blue: #24272b;
+  --gold: #8f7747;
+  --red: #74504b;
+  --white: #ffffff;
+  --shadow:
+    0 1px 1px rgba(0, 0, 0, 0.04),
+    0 16px 38px rgba(0, 0, 0, 0.08),
+    0 36px 90px rgba(0, 0, 0, 0.08);
+  --shadow-soft:
+    0 1px 1px rgba(0, 0, 0, 0.035),
+    0 12px 34px rgba(0, 0, 0, 0.06);
+  --sheen: linear-gradient(
+    138deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(255, 255, 255, 0.42) 24%,
+    rgba(255, 255, 255, 0) 48%
+  );
+  --sheen-dark: linear-gradient(
+    138deg,
+    rgba(255, 255, 255, 0.11) 0%,
+    rgba(255, 255, 255, 0.025) 30%,
+    rgba(255, 255, 255, 0) 58%
+  );
+}
+
+body {
+  background:
+    linear-gradient(rgba(12, 13, 14, 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(12, 13, 14, 0.024) 1px, transparent 1px),
+    var(--paper);
+  background-size: 72px 72px;
+}
+
+::selection {
+  color: #fff;
+  background: #111315;
+}
+
+:focus-visible {
+  outline-color: rgba(12, 13, 14, 0.56);
+}
+
+em,
+.eyebrow,
+.section-head .eyebrow,
+.page-hero .eyebrow {
+  color: #303236;
+}
+
+.eyebrow {
+  letter-spacing: 0.24em;
+}
+
+main h1,
+main h2,
+.intro-catchcopy {
+  text-shadow: none;
+}
+
+main h1 em,
+main h2 em {
+  position: relative;
+  color: inherit;
+}
+
+main h1 em::after,
+main h2 em::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.08em;
+  left: 0;
+  height: 3px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0.32);
+  transform-origin: left;
+}
+
+.site-header {
+  border-bottom: 1px solid rgba(12, 13, 14, 0.13);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.035);
+  backdrop-filter: blur(18px) saturate(120%);
+}
+
+.desktop-nav a::after {
+  background: #111315;
+}
+
+.header-cta,
+.button,
+.mobile-menu-cta,
+.consultation-options button,
+.consultation-step-next,
+.consultation-chat-trigger {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.header-cta::before,
+.button::before,
+.mobile-menu-cta::before,
+.consultation-options button::before,
+.consultation-step-next::before,
+.consultation-chat-trigger::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 20% 120%, rgba(255, 255, 255, 0.2), transparent 42%),
+    linear-gradient(118deg, #32353a, #0b0c0d 68%);
+  content: "";
+  transform: translateY(104%);
+  transition: transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.header-cta:hover::before,
+.button:hover::before,
+.mobile-menu-cta:hover::before,
+.consultation-options button:hover::before,
+.consultation-step-next:hover::before,
+.consultation-chat-trigger:hover::before {
+  transform: translateY(0);
+}
+
+.header-cta,
+.button-primary,
+.consultation-step-next,
+.consultation-chat-trigger {
+  border: 1px solid #111315;
+  background: #111315;
+}
+
+.button-light {
+  color: #111315;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  background: #fff;
+}
+
+.button-light:hover {
+  color: #fff;
+}
+
+.button-outline-light:hover {
+  color: #111315;
+  background: #fff;
+}
+
+.path-card,
+.profile-card,
+.plan-grid > article,
+.concern-grid > article,
+.method-grid > article,
+.program-example,
+.university-card,
+.process-list li,
+.faq-list details {
+  border-color: rgba(12, 13, 14, 0.16);
+  border-radius: 4px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.045);
+  transition:
+    transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 220ms ease,
+    box-shadow 320ms ease;
+}
+
+.path-card:hover,
+.profile-card:hover,
+.plan-grid > article:hover,
+.concern-grid > article:hover,
+.method-grid > article:hover,
+.program-example:hover,
+.process-list li:hover,
+.faq-list details:hover {
+  border-color: rgba(12, 13, 14, 0.38);
+  box-shadow:
+    0 18px 48px rgba(0, 0, 0, 0.09),
+    0 0 0 1px rgba(255, 255, 255, 0.74) inset;
+  transform: translateY(-4px);
+}
+
+.home-hero,
+.page-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-hero::after,
+.page-hero::after {
+  position: absolute;
+  z-index: 0;
+  top: 9%;
+  right: -13vw;
+  width: min(54vw, 760px);
+  aspect-ratio: 1;
+  opacity: 0.42;
+  border: 1px solid rgba(12, 13, 14, 0.11);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 42px rgba(12, 13, 14, 0.018),
+    0 0 0 96px rgba(12, 13, 14, 0.012);
+  content: "";
+  pointer-events: none;
+}
+
+.home-hero > *,
+.page-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-band,
+.experience-section,
+.result-summary,
+.site-footer,
+.consultation-chat-panel {
+  background-color: #0b0c0d;
+}
+
+.site-footer {
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.04), transparent 38%),
+    #08090a;
+}
+
+.site-footer nav a:hover,
+.text-link:hover,
+.path-card:hover .path-card-top span {
+  color: #fff;
+}
+
+.consultation-chat-panel {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.34);
+}
+
+.consultation-chat-trigger {
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.24),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.consultation-chat-trigger:hover {
+  box-shadow:
+    0 24px 62px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(255, 255, 255, 0.18) inset;
+  transform: translateY(-4px);
+}
+
+.brand-mark,
+.brand-mark-large,
+.brand-mark-display {
+  border: 1px solid rgba(12, 13, 14, 0.12);
+  border-radius: 4px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.075);
+}
+
+.brand-mark-inverse {
+  border-color: rgba(255, 255, 255, 0.28);
+  border-radius: 4px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.34);
+}
+
+/* The intro assembles the graduation cap, pen-led R and wordmark in layers. */
+.site-intro {
+  padding: 24px;
+  color: #0c0d0e;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(0, 0, 0, 0.045), transparent 34%),
+    #fff;
+}
+
+.site-intro-leaving .intro-grid {
+  opacity: 0;
+  filter: blur(8px);
+  transform: scale(1.08);
+}
+
+.intro-grid {
+  transition:
+    opacity 620ms cubic-bezier(0.4, 0, 0.2, 1),
+    filter 620ms ease,
+    transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.intro-logo-button {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+.intro-rixa-mark {
+  display: block;
+  position: relative;
+  width: clamp(230px, 30vw, 390px);
+  aspect-ratio: 676 / 484;
+  overflow: hidden;
+  background: #fff;
+  isolation: isolate;
+}
+
+.intro-logo-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.intro-logo-core {
+  opacity: 0;
+  clip-path: inset(20% 16% 17% 19% round 2px);
+  transform: scale(0.82);
+  animation: rixa-core-build 980ms 180ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-logo-cap {
+  opacity: 0;
+  clip-path: inset(0 14% 54% 14%);
+  transform: translateY(-34px) rotate(-3deg);
+  animation: rixa-cap-land 780ms 520ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-logo-word {
+  opacity: 0;
+  clip-path: inset(74% 5% 0 5%);
+  filter: blur(7px);
+  transform: translateY(22px);
+  animation: rixa-word-rise 720ms 1050ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-logo-halo {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: 72%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(12, 13, 14, 0.22);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  animation: rixa-halo-pulse 1100ms 720ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-pen-trace {
+  position: absolute;
+  z-index: 4;
+  top: 55%;
+  left: 39.45%;
+  width: 2px;
+  height: 17%;
+  opacity: 0;
+  background: linear-gradient(#0c0d0e, #0c0d0e 76%, transparent);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.18);
+  transform: translateY(-44px) scaleY(0.2);
+  transform-origin: top;
+  animation: rixa-pen-write 720ms 760ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes rixa-core-build {
+  0% {
+    opacity: 0;
+    clip-path: inset(49% 49% 49% 49% round 12px);
+    transform: scale(0.82);
+  }
+  62% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(20% 16% 17% 19% round 2px);
+    transform: scale(1);
+  }
+}
+
+@keyframes rixa-cap-land {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+}
+
+@keyframes rixa-word-rise {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes rixa-pen-write {
+  0% {
+    opacity: 0;
+    transform: translateY(-44px) scaleY(0.2);
+  }
+  38% {
+    opacity: 0.9;
+  }
+  78% {
+    opacity: 0.9;
+    transform: translateY(0) scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(9px) scaleY(0.2);
+  }
+}
+
+@keyframes rixa-halo-pulse {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  42% {
+    opacity: 0.34;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.45);
+  }
+}
+
+@media (max-width: 560px) {
+  body {
+    background-size: 48px 48px;
+  }
+
+  .home-hero::after,
+  .page-hero::after {
+    top: 7%;
+    right: -48vw;
+    width: 92vw;
+  }
+
+  .intro-rixa-mark {
+    width: min(78vw, 310px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-logo-core,
+  .intro-logo-cap,
+  .intro-logo-word {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    animation: none;
+  }
+
+  .intro-logo-halo,
+  .intro-pen-trace {
+    display: none;
+  }
+}

@@ -69,6 +69,7 @@ test("home uses the restrained profile card and identifies personal results", as
     html,
     /class="portrait-compact" role="img" aria-label="NCEA・海外大学進学メンター 米山陸"/,
   );
+  assert.match(html, /riku-yoneyama-profile-og\.png/);
   assert.match(html, /本人の2023年出願結果/);
   assert.match(html, /対応科目を、ひと目で/);
   assert.match(html, /Algebra \/ Calculus/);

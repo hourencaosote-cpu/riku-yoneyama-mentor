@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { ConsultationChat } from "./_components/ConsultationChat";
 import { MotionRuntime } from "./_components/MotionRuntime";
+import { SiteIntro } from "./_components/SiteIntro";
 import "./globals.css";
 
 const siteName = "米山 陸｜NCEA・海外大学進学 個別サポート";
 const description =
   "現役メルボルン大学生・米山陸による、NCEA学習、海外大学進学、留学生活のオンライン個別サポート。";
-const ogImageUrl =
-  "https://raw.githubusercontent.com/hourencaosote-cpu/riku-yoneyama-mentor/8d4366f3bd9b967a325760ad47d1bdf20ef5e83b/public/og.png";
+const ogImageUrl = "/riku-yoneyama-profile-og.png";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -49,9 +49,9 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [
         {
           url: ogImageUrl,
-          width: 1728,
-          height: 909,
-          alt: "米山陸 NCEA・海外大学進学 個別サポート",
+          width: 652,
+          height: 802,
+          alt: "ネイビーのスーツとネクタイを着用した米山陸のプロフィール写真",
         },
       ],
     },
@@ -84,6 +84,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <SiteIntro />
         <MotionRuntime />
         {children}
         <ConsultationChat />

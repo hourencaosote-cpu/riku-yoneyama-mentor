@@ -5,7 +5,6 @@ import {
   SiteFooter,
   SiteHeader,
 } from "../_components/SiteChrome";
-import { SiteIntro } from "../_components/SiteIntro";
 import {
   methods,
   programExamples,
@@ -35,7 +34,6 @@ const subjectGroups = [
 export default function SupportPage() {
   return (
     <>
-      <SiteIntro />
       <SiteHeader current="/support" />
       <main>
         <PageHero

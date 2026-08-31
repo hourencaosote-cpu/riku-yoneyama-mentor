@@ -4,7 +4,6 @@ import {
   SiteFooter,
   SiteHeader,
 } from "../_components/SiteChrome";
-import { SiteIntro } from "../_components/SiteIntro";
 import { faqs, steps } from "../_data/site";
 
 export const metadata: Metadata = {
@@ -16,7 +15,6 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <SiteIntro />
       <SiteHeader current="/contact" />
       <main>
         <PageHero

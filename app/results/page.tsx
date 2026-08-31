@@ -6,7 +6,6 @@ import {
   SiteFooter,
   SiteHeader,
 } from "../_components/SiteChrome";
-import { SiteIntro } from "../_components/SiteIntro";
 import { universities } from "../_data/site";
 
 export const metadata: Metadata = {
@@ -18,7 +17,6 @@ export const metadata: Metadata = {
 export default function ResultsPage() {
   return (
     <>
-      <SiteIntro />
       <SiteHeader current="/results" />
       <main>
         <PageHero

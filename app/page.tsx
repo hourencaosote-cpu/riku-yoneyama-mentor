@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { ContactBand, SiteFooter, SiteHeader } from "./_components/SiteChrome";
-import { SiteIntro } from "./_components/SiteIntro";
 import {
   concerns,
   plans,
@@ -70,7 +69,6 @@ const subjectRingArcs = [
 export default function Home() {
   return (
     <>
-      <SiteIntro />
       <SiteHeader current="/" />
       <main>
         <section className="home-hero" aria-labelledby="hero-title">

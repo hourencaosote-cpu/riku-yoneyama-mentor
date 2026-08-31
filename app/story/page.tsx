@@ -5,7 +5,6 @@ import {
   SiteFooter,
   SiteHeader,
 } from "../_components/SiteChrome";
-import { SiteIntro } from "../_components/SiteIntro";
 
 export const metadata: Metadata = {
   title: "本人の経験",
@@ -37,7 +36,6 @@ const story = [
 export default function StoryPage() {
   return (
     <>
-      <SiteIntro />
       <SiteHeader current="/story" />
       <main>
         <PageHero

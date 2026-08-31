@@ -5,7 +5,6 @@ import {
   SiteFooter,
   SiteHeader,
 } from "../_components/SiteChrome";
-import { SiteIntro } from "../_components/SiteIntro";
 import { plans, studentVoices } from "../_data/site";
 
 export const metadata: Metadata = {
@@ -45,7 +44,6 @@ const comparison = [
 export default function PlansPage() {
   return (
     <>
-      <SiteIntro />
       <SiteHeader current="/plans" />
       <main>
         <PageHero

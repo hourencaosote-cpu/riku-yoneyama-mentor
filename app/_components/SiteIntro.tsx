@@ -1,28 +1,39 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { BrandMark } from "./BrandMark";
+import { useEffect, useRef, useState } from "react";
 
 type IntroPhase = "checking" | "visible" | "leaving" | "hidden";
 
-const INTRO_SEEN_KEY = "riku-yoneyama:intro-seen:rixa-v4";
+let introShownInCurrentDocument = false;
+
+function isInternalPageNavigation() {
+  const navigationEntry = performance.getEntriesByType(
+    "navigation",
+  )[0] as PerformanceNavigationTiming | undefined;
+
+  if (navigationEntry?.type === "reload" || !document.referrer) {
+    return false;
+  }
+
+  try {
+    return new URL(document.referrer).origin === window.location.origin;
+  } catch {
+    return false;
+  }
+}
 
 export function SiteIntro() {
   const [phase, setPhase] = useState<IntroPhase>("checking");
+  const skipTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    try {
-      if (window.sessionStorage.getItem(INTRO_SEEN_KEY) === "true") {
-        document.body.classList.remove("intro-active");
-        return;
-      }
-
-      window.sessionStorage.setItem(INTRO_SEEN_KEY, "true");
-    } catch {
-      // Storage may be unavailable in privacy-restricted browsers. In that case,
-      // the intro still works for the current page.
+    if (introShownInCurrentDocument || isInternalPageNavigation()) {
+      document.body.classList.remove("intro-active");
+      const hiddenTimer = window.setTimeout(() => setPhase("hidden"), 0);
+      return () => window.clearTimeout(hiddenTimer);
     }
 
+    introShownInCurrentDocument = true;
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -31,27 +42,30 @@ export function SiteIntro() {
     const visibleTimer = window.setTimeout(() => setPhase("visible"), 0);
     const leaveTimer = window.setTimeout(
       () => setPhase("leaving"),
-      reducedMotion ? 60 : 1650,
+      reducedMotion ? 80 : 2600,
     );
     const hideTimer = window.setTimeout(
       () => {
         setPhase("hidden");
         document.body.classList.remove("intro-active");
       },
-      reducedMotion ? 140 : 2350,
+      reducedMotion ? 180 : 3300,
     );
 
     return () => {
       window.clearTimeout(visibleTimer);
       window.clearTimeout(leaveTimer);
       window.clearTimeout(hideTimer);
+      if (skipTimerRef.current !== null) {
+        window.clearTimeout(skipTimerRef.current);
+      }
       document.body.classList.remove("intro-active");
     };
   }, []);
 
   const skip = () => {
     setPhase("leaving");
-    window.setTimeout(() => {
+    skipTimerRef.current = window.setTimeout(() => {
       setPhase("hidden");
       document.body.classList.remove("intro-active");
     }, 480);
@@ -73,7 +87,25 @@ export function SiteIntro() {
           onClick={skip}
           aria-label="サイトを表示する"
         >
-          <BrandMark size="display" />
+          <span className="intro-rixa-mark" aria-hidden="true">
+            <span className="intro-logo-halo" />
+            <img
+              className="intro-logo-layer intro-logo-core"
+              src="/rixa-logo.png"
+              alt=""
+            />
+            <img
+              className="intro-logo-layer intro-logo-cap"
+              src="/rixa-logo.png"
+              alt=""
+            />
+            <img
+              className="intro-logo-layer intro-logo-word"
+              src="/rixa-logo.png"
+              alt=""
+            />
+            <span className="intro-pen-trace" />
+          </span>
         </button>
       </div>
     </div>
