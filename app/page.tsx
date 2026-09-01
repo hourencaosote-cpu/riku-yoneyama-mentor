@@ -7,7 +7,7 @@ import {
 } from "./_data/site";
 
 export const metadata: Metadata = {
-  title: "トップ",
+  title: "RIXA｜NCEA・海外大学進学 個別サポート",
   description:
     "NCEA学習、海外大学進学、留学生活を、現役メルボルン大学生の米山陸が1対1で伴走します。",
 };
