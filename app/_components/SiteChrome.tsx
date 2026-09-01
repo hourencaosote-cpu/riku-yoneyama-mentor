@@ -65,7 +65,7 @@ export function SiteFooter() {
       <div className="section-shell footer-grid">
         <div className="footer-brand">
           <BrandMark inverse />
-          <strong>Riku Yoneyama</strong>
+          <strong>RIXA</strong>
           <p>NCEA・海外大学進学 オンライン個別サポート</p>
         </div>
         <nav aria-label="フッターナビゲーション">
@@ -78,7 +78,7 @@ export function SiteFooter() {
         <div className="footer-meta">
           <p>University of Melbourne</p>
           <p>Online / Japanese</p>
-          <p>© {new Date().getFullYear()} Riku Yoneyama</p>
+          <p>© {new Date().getFullYear()} RIXA</p>
         </div>
       </div>
     </footer>

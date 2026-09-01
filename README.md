@@ -1,4 +1,4 @@
-# Riku Yoneyama Mentor
+# RIXA
 
 米山陸による、NCEA学習・海外大学進学・留学生活のオンライン個別サポート公式サイトです。
 

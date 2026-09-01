@@ -5,7 +5,7 @@ import { MotionRuntime } from "./_components/MotionRuntime";
 import { SiteIntro } from "./_components/SiteIntro";
 import "./globals.css";
 
-const siteName = "米山 陸｜NCEA・海外大学進学 個別サポート";
+const siteName = "RIXA｜NCEA・海外大学進学 個別サポート";
 const description =
   "現役メルボルン大学生・米山陸による、NCEA学習、海外大学進学、留学生活のオンライン個別サポート。";
 const ogImageUrl = "/riku-yoneyama-profile-og.png";
@@ -29,6 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description,
     keywords: [
+      "RIXA",
       "NCEA",
       "海外大学進学",
       "オンライン家庭教師",
