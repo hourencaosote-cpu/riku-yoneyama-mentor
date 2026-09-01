@@ -5720,7 +5720,97 @@ main h2 em::after {
   mix-blend-mode: multiply;
 }
 
-/* The intro assembles the graduation cap, pen-led R and wordmark in layers. */
+/* Remove the bitmap's white canvas on both light and dark surfaces. */
+.brand-mark,
+.brand-mark-large,
+.brand-mark-display,
+.brand-mark-inverse,
+.consultation-chat-identity .brand-mark {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.brand-mark-image {
+  filter: contrast(1.08);
+  mix-blend-mode: multiply;
+}
+
+.brand-mark-inverse .brand-mark-image {
+  filter: invert(1) contrast(1.08);
+  mix-blend-mode: screen;
+}
+
+/* Keep every text link readable when its hover surface appears. */
+.text-link {
+  margin-left: -14px;
+  padding: 10px 14px;
+  color: var(--navy-deep);
+  border-bottom-color: rgba(23, 52, 72, 0.42);
+  border-radius: 999px;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.text-link:hover {
+  color: var(--navy-deep);
+  border-color: rgba(47, 124, 157, 0.7);
+  background: rgba(47, 124, 157, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(47, 124, 157, 0.08);
+}
+
+.proof-strip .text-link,
+.home-plan-preview .text-link {
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.52);
+}
+
+.proof-strip .text-link:hover,
+.home-plan-preview .text-link:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Light buttons use a pale hover surface with dark text; they never disappear. */
+.button-light::before,
+.button-outline-light::before {
+  display: none;
+}
+
+.header-cta:hover,
+.button-primary:hover,
+.mobile-menu-cta:hover,
+.consultation-step-next:hover:not(:disabled),
+.consultation-chat-trigger:hover {
+  color: #fff;
+  border-color: var(--blue);
+  background: var(--blue);
+}
+
+.button-light:hover {
+  color: var(--navy-deep);
+  border-color: rgba(47, 124, 157, 0.62);
+  background: #edf7fa;
+  box-shadow:
+    0 14px 34px rgba(2, 26, 42, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+.button-outline-light:hover {
+  color: var(--navy-deep);
+  border-color: #fff;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+}
+
+/* A single logo image is revealed in separate regions so no artwork is duplicated. */
 .site-intro {
   padding: 24px;
   color: #0c0d0e;
@@ -5729,15 +5819,15 @@ main h2 em::after {
 
 .site-intro-leaving .intro-grid {
   opacity: 0;
-  filter: blur(8px);
-  transform: scale(1.08);
+  filter: blur(2px);
+  transform: scale(1.025);
 }
 
 .intro-grid {
   transition:
-    opacity 620ms cubic-bezier(0.4, 0, 0.2, 1),
-    filter 620ms ease,
-    transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    opacity 760ms cubic-bezier(0.4, 0, 0.2, 1),
+    filter 760ms ease,
+    transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .intro-logo-button {
@@ -5757,37 +5847,50 @@ main h2 em::after {
   isolation: auto;
 }
 
-.intro-logo-layer {
-  position: absolute;
-  inset: 0;
+.intro-logo-svg {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  overflow: visible;
+  opacity: 0;
+  filter: contrast(1.08);
+  transform: translateY(4px) scale(0.985);
+  animation: rixa-logo-arrive 760ms 60ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-logo-image {
   mix-blend-mode: multiply;
   pointer-events: none;
-  will-change: opacity, transform, filter;
 }
 
-.intro-logo-core {
+.intro-mask-piece {
   opacity: 0;
-  clip-path: inset(20% 16% 17% 19% round 2px);
-  transform: scale(0.9);
-  animation: rixa-core-build 1040ms 160ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform-box: fill-box;
+  will-change: transform;
 }
 
-.intro-logo-cap {
-  opacity: 0;
-  clip-path: inset(0 14% 54% 14%);
-  transform: translate3d(0, -28px, 0) rotate(-2deg);
-  animation: rixa-cap-land 920ms 500ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.intro-mask-cap {
+  transform: scaleY(0.01);
+  transform-origin: top;
+  animation: rixa-mask-open-y 900ms 120ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.intro-logo-word {
-  opacity: 0;
-  clip-path: inset(74% 5% 0 5%);
-  filter: blur(7px);
-  transform: translate3d(0, 18px, 0);
-  animation: rixa-word-rise 860ms 1040ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.intro-mask-tassel {
+  transform: scaleY(0.01);
+  transform-origin: top;
+  animation: rixa-mask-open-y 800ms 360ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-mask-body {
+  transform: scaleX(0.01);
+  transform-origin: left;
+  animation: rixa-mask-open-x 1180ms 440ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-mask-word {
+  transform: scaleY(0.01);
+  transform-origin: bottom;
+  animation: rixa-mask-open-y 980ms 1080ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .intro-logo-halo {
@@ -5801,7 +5904,7 @@ main h2 em::after {
   border-radius: 50%;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.4);
-  animation: rixa-halo-pulse 1100ms 720ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: rixa-halo-pulse 1480ms 620ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .intro-pen-trace {
@@ -5816,35 +5919,27 @@ main h2 em::after {
   box-shadow: 0 0 12px rgba(47, 124, 157, 0.28);
   transform: translate3d(0, -38px, 0) scaleY(0.2);
   transform-origin: top;
-  animation: rixa-pen-write 720ms 760ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: rixa-pen-write 980ms 640ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes rixa-core-build {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  54% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes rixa-cap-land {
+@keyframes rixa-logo-arrive {
   to {
     opacity: 1;
-    transform: translate3d(0, 0, 0) rotate(0);
+    transform: translateY(0) scale(1);
   }
 }
 
-@keyframes rixa-word-rise {
+@keyframes rixa-mask-open-y {
   to {
     opacity: 1;
-    filter: blur(0);
-    transform: translate3d(0, 0, 0);
+    transform: scaleY(1);
+  }
+}
+
+@keyframes rixa-mask-open-x {
+  to {
+    opacity: 1;
+    transform: scaleX(1);
   }
 }
 
@@ -5898,11 +5993,13 @@ main h2 em::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .intro-logo-core,
-  .intro-logo-cap,
-  .intro-logo-word {
+  .intro-logo-svg {
     opacity: 1;
-    filter: none;
+    animation: none;
+  }
+
+  .intro-mask-piece {
+    opacity: 1;
     transform: none;
     animation: none;
   }

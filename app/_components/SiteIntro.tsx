@@ -89,21 +89,56 @@ export function SiteIntro() {
         >
           <span className="intro-rixa-mark" aria-hidden="true">
             <span className="intro-logo-halo" />
-            <img
-              className="intro-logo-layer intro-logo-core"
-              src="/rixa-logo.png"
-              alt=""
-            />
-            <img
-              className="intro-logo-layer intro-logo-cap"
-              src="/rixa-logo.png"
-              alt=""
-            />
-            <img
-              className="intro-logo-layer intro-logo-word"
-              src="/rixa-logo.png"
-              alt=""
-            />
+            <svg
+              className="intro-logo-svg"
+              viewBox="0 0 676 484"
+              focusable="false"
+            >
+              <defs>
+                <mask
+                  id="rixa-intro-reveal"
+                  maskUnits="userSpaceOnUse"
+                  maskContentUnits="userSpaceOnUse"
+                >
+                  <rect width="676" height="484" fill="#000" />
+                  <rect
+                    className="intro-mask-piece intro-mask-cap"
+                    width="676"
+                    height="154"
+                    fill="#fff"
+                  />
+                  <rect
+                    className="intro-mask-piece intro-mask-tassel"
+                    x="432"
+                    y="72"
+                    width="62"
+                    height="132"
+                    fill="#fff"
+                  />
+                  <rect
+                    className="intro-mask-piece intro-mask-body"
+                    y="145"
+                    width="676"
+                    height="244"
+                    fill="#fff"
+                  />
+                  <rect
+                    className="intro-mask-piece intro-mask-word"
+                    y="378"
+                    width="676"
+                    height="106"
+                    fill="#fff"
+                  />
+                </mask>
+              </defs>
+              <image
+                className="intro-logo-image"
+                href="/rixa-logo.png"
+                width="676"
+                height="484"
+                mask="url(#rixa-intro-reveal)"
+              />
+            </svg>
             <span className="intro-pen-trace" />
           </span>
         </button>

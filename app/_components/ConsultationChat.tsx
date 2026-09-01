@@ -229,7 +229,7 @@ export function ConsultationChat() {
       >
         <header className="consultation-chat-header">
           <div className="consultation-chat-identity">
-            <BrandMark />
+            <BrandMark inverse />
             <div>
               <span>無料・個別カウンセリング</span>
               <strong id="consultation-chat-title">{consultationChat.title}</strong>
