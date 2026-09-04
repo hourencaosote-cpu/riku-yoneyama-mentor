@@ -9,7 +9,7 @@ import { faqs, steps } from "../_data/site";
 export const metadata: Metadata = {
   title: "相談の流れ",
   description:
-    "米山陸のNCEA・海外大学進学個別サポート。無料相談から体験、サポート開始までの流れとよくある質問。",
+    "米山陸のNCEA・ATAR・海外大学進学個別サポート。無料相談から体験、サポート開始までの流れとよくある質問。",
 };
 
 export default function ContactPage() {
@@ -91,7 +91,7 @@ export default function ContactPage() {
             </div>
             <div className="inquiry-copy">
               <p>
-                NCEA、進路、留学生活。まだ悩みが言葉になっていなくても大丈夫です。
+                NCEA・ATAR、進路、留学生活。まだ悩みが言葉になっていなくても大丈夫です。
                 メールには、学年・在住国・相談したいことを分かる範囲でお書きください。
               </p>
               <a

@@ -5,9 +5,9 @@ import { MotionRuntime } from "./_components/MotionRuntime";
 import { SiteIntro } from "./_components/SiteIntro";
 import "./globals.css";
 
-const siteName = "RIXA｜NCEA・海外大学進学 個別サポート";
+const siteName = "RIXA｜NCEA・ATAR・海外大学進学 個別サポート";
 const description =
-  "現役メルボルン大学生・米山陸による、NCEA学習、海外大学進学、留学生活のオンライン個別サポート。";
+  "現役メルボルン大学生・米山陸による、NCEA・ATARの両方に対応した学習支援と、海外大学進学・留学生活のオンライン個別サポート。";
 const ogImageUrl = "/riku-yoneyama-profile-og.png";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -31,6 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
     keywords: [
       "RIXA",
       "NCEA",
+      "ATAR",
       "海外大学進学",
       "オンライン家庭教師",
       "留学メンター",
@@ -46,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "ja_JP",
       title: siteName,
       description:
-        "つまずいた経験があるから、進める道筋を一緒につくれる。NCEA学習から海外大学進学、留学生活まで1対1で伴走します。",
+        "つまずいた経験があるから、進める道筋を一緒につくれる。NCEA・ATARの学習支援から海外大学進学、留学生活まで1対1で伴走します。",
       images: [
         {
           url: ogImageUrl,

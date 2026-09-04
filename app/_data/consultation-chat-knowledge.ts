@@ -4,9 +4,9 @@
  */
 export const approvedConsultationAnswerGuide = {
   subjects:
-    "対応科目はAlgebra、Calculus、Accounting、English、ESOL、History、Chemistry・Biology Level 1などです。複数科目と学習計画、課題レビュー、進路設計を組み合わせられます。学年・Level・課題内容は初回相談で確認します。",
+    "NCEA・ATARの両方に対応しています。主な指導科目はAlgebra、Calculus、Accounting、English、ESOL、History、Chemistry・Biology Level 1などです。国・州・学年・履修科目ごとに具体的な対応範囲を初回相談で確認し、学習計画、課題レビュー、進路設計を組み合わせます。",
   ncea:
-    "NCEAが初めてでも、Achievement・Merit・Excellenceの違い、単位、評価基準から整理できます。目標から週・日単位の行動へ分解し、課題やテスト後に計画を見直します。",
+    "NCEA・ATARの両方に対応しています。NCEAはLevelや評価基準、ATARに向けた学習は州・学校の履修科目や課題を確認します。目標から週・日単位の行動へ分解し、課題やテスト後に計画を見直します。",
   university:
     "大学・専攻選び、出願計画、奨学金、書類確認、面接準備を整理します。最新の入学条件や奨学金条件は変わるため、断定せず公式情報と本人確認へ案内します。",
   studyAbroadLife:

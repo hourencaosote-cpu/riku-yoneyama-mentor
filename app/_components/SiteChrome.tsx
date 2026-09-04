@@ -66,7 +66,7 @@ export function SiteFooter() {
         <div className="footer-brand">
           <BrandMark inverse />
           <strong>RIXA</strong>
-          <p>NCEA・海外大学進学 オンライン個別サポート</p>
+          <p>NCEA・ATAR・海外大学進学 オンライン個別サポート</p>
         </div>
         <nav aria-label="フッターナビゲーション">
           {navigation.map((item) => (

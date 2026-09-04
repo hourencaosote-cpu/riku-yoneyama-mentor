@@ -67,7 +67,7 @@ test("home uses the restrained profile card and identifies personal results", as
 
   assert.match(
     html,
-    /class="portrait-compact" role="img" aria-label="NCEA・海外大学進学メンター 米山陸"/,
+    /class="portrait-compact" role="img" aria-label="NCEA・ATAR・海外大学進学メンター 米山陸"/,
   );
   assert.match(html, /riku-yoneyama-profile-og\.png/);
   assert.match(html, /本人の2023年出願結果/);
@@ -80,7 +80,9 @@ test("support explains subject scope and custom combinations", async () => {
   const response = await render("/support");
   const html = await response.text();
 
-  assert.match(html, /NCEA Subjects/);
+  assert.match(html, /NCEA \/ ATAR/);
+  assert.match(html, /NCEA・ATARの両方に対応/);
+  assert.match(html, /国・州・学年/);
   assert.match(html, /Chemistry・Biology Level 1/);
   assert.match(html, /サポートの組み合わせ例/);
   assert.match(html, /固定コースではなく一例です/);
@@ -126,4 +128,5 @@ test("contact page exposes working contact links", async () => {
   assert.match(html, /href="mailto:yoneriku19@gmail\.com/);
   assert.match(html, /href="tel:\+819012906147"/);
   assert.match(html, /無料相談から始まる4ステップ|相談から始まる4ステップ/);
+  assert.match(html, /NCEAとATARのどちらにも対応していますか/);
 });

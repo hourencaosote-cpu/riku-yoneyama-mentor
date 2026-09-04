@@ -7,9 +7,9 @@ import {
 } from "./_data/site";
 
 export const metadata: Metadata = {
-  title: "RIXA｜NCEA・海外大学進学 個別サポート",
+  title: "RIXA｜NCEA・ATAR・海外大学進学 個別サポート",
   description:
-    "NCEA学習、海外大学進学、留学生活を、現役メルボルン大学生の米山陸が1対1で伴走します。",
+    "NCEA・ATARの両方に対応。学習、海外大学進学、留学生活を、現役メルボルン大学生の米山陸が1対1で伴走します。",
 };
 
 const paths = [
@@ -17,7 +17,7 @@ const paths = [
     number: "01",
     label: "SUPPORT",
     title: "何を、どう支えるのか",
-    text: "NCEA、海外大学進学、留学生活。3つの領域を、一人ひとりの目標に合わせて組み合わせます。",
+    text: "NCEA・ATARの学習、海外大学進学、留学生活。3つの領域を、一人ひとりの目標に合わせて組み合わせます。",
     href: "/support",
     image: "/scenes/support.jpg",
     photoAuthor: "Heidy Garcia",
@@ -75,7 +75,7 @@ export default function Home() {
           <div className="section-shell home-hero-grid">
             <div className="hero-copy motion-in">
               <p className="eyebrow">
-                NCEA &amp; INTERNATIONAL UNIVERSITY MENTOR
+                NCEA / ATAR &amp; UNIVERSITY MENTOR
               </p>
               <h1 id="hero-title">
                 <span className="hero-line">つまずきを、</span>
@@ -85,7 +85,7 @@ export default function Home() {
                 </span>
               </h1>
               <p className="hero-lead">
-                NCEA学習、海外大学進学、留学生活を別々に考えず、
+                NCEA・ATARの両方に対応。学習、海外大学進学、留学生活を別々に考えず、
                 今の状況から次に取るべき行動まで、1対1で整理します。
               </p>
               <div className="hero-actions">
@@ -108,7 +108,7 @@ export default function Home() {
               <div
                 className="portrait-compact"
                 role="img"
-                aria-label="NCEA・海外大学進学メンター 米山陸"
+                aria-label="NCEA・ATAR・海外大学進学メンター 米山陸"
               />
               <div className="portrait-meta">
                 <div>

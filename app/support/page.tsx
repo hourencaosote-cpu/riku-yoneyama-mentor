@@ -15,7 +15,7 @@ import {
 export const metadata: Metadata = {
   title: "サポート内容",
   description:
-    "NCEA学習、海外大学進学、留学生活を一つの計画にまとめる、米山陸のオンライン個別サポート。",
+    "NCEA・ATARの両方に対応。学習、海外大学進学、留学生活を一つの計画にまとめる、米山陸のオンライン個別サポート。",
 };
 
 const subjectGroups = [
@@ -65,7 +65,7 @@ export default function SupportPage() {
             <ul className="audience-list">
               <li>
                 <span>01</span>
-                <p>NCEAの評価基準や単位の仕組みから理解したい</p>
+                <p>NCEA・ATARに向けた科目の学習や評価基準から理解したい</p>
               </li>
               <li>
                 <span>02</span>
@@ -143,9 +143,9 @@ export default function SupportPage() {
             </div>
             <div className="scope-subject-board" aria-label="対応科目一覧">
               <div className="scope-subject-intro">
-                <h3>NCEA Subjects</h3>
+                <h3>NCEA / ATAR</h3>
                 <p>
-                  1科目から複数科目まで、必要な内容を組み合わせられます。
+                  NCEA・ATARの両方に対応。1科目から複数科目まで、必要な内容を組み合わせられます。
                 </p>
               </div>
               <div className="scope-subject-groups">
@@ -156,7 +156,7 @@ export default function SupportPage() {
                   </article>
                 ))}
               </div>
-              <small>学年・Level・課題内容は初回相談で確認します。</small>
+              <small>以下は主な指導科目の例です。NCEAのLevelとATARに向けた履修科目を区別し、国・州・学年・学校の課題に合わせて、具体的な対応範囲を初回相談で確認します。</small>
             </div>
             <div className="scope-list">
               {subjectGroups.map((group) => (

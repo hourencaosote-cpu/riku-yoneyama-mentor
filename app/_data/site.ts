@@ -62,8 +62,8 @@ export const studentVoices = [
 export const concerns = [
   {
     number: "01",
-    title: "NCEAの進め方が見えない",
-    text: "評価基準や単位の仕組みが複雑で、何を優先すべきか判断できない。",
+    title: "NCEA・ATARの学習で迷う",
+    text: "学校の評価基準や進学目標に向けて、どの科目・課題を優先すべきか判断できない。",
   },
   {
     number: "02",
@@ -80,9 +80,9 @@ export const concerns = [
 export const supportAreas = [
   {
     number: "01",
-    title: "NCEA学習",
+    title: "NCEA・ATAR学習支援",
     lead: "評価基準から、次の一手を決める。",
-    text: "Achievement・Merit・Excellenceの違いを整理し、目標から逆算。科目ごとの学習計画と定期レビューで、日々の行動まで具体化します。",
+    text: "NCEA・ATARの両方に対応。NCEAはLevelや評価基準、ATARに向けた学習は州・学校の履修科目や課題を確認し、一人ひとり・科目ごとに先を見据えた学習計画を作成します。定期レビューで日々の行動まで具体化します。",
     tags: ["評価基準の理解", "科目別の攻略", "学習計画"],
   },
   {
@@ -164,7 +164,7 @@ export const programExamples = [
   {
     number: "03",
     title: "科目サポート + 進路設計",
-    subjects: "NCEA Subjects / University Planning",
+    subjects: "NCEA / ATAR / University Planning",
     text: "今の科目選択と成績を、大学・専攻・奨学金の検討まで一つの道筋として考えます。",
   },
 ];
@@ -322,6 +322,11 @@ export const steps = [
 ];
 
 export const faqs = [
+  {
+    question: "NCEAとATARのどちらにも対応していますか？",
+    answer:
+      "はい、両方に対応しています。NCEAはLevelや評価基準、ATARに向けた学習は州・学校の履修科目と課題に合わせてサポートします。対応科目・学年・具体的な課題は初回相談で確認し、一人ひとりに合う学習計画を作成します。",
+  },
   {
     question: "NCEAの仕組みがほとんど分からなくても大丈夫ですか？",
     answer:
