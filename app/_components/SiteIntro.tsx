@@ -42,14 +42,14 @@ export function SiteIntro() {
     const visibleTimer = window.setTimeout(() => setPhase("visible"), 0);
     const leaveTimer = window.setTimeout(
       () => setPhase("leaving"),
-      reducedMotion ? 80 : 2600,
+      reducedMotion ? 80 : 3100,
     );
     const hideTimer = window.setTimeout(
       () => {
         setPhase("hidden");
         document.body.classList.remove("intro-active");
       },
-      reducedMotion ? 180 : 3300,
+      reducedMotion ? 180 : 4100,
     );
 
     return () => {

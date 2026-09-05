@@ -65,11 +65,11 @@ html {
 }
 
 ::view-transition-old(root) {
-  animation: page-out 220ms ease both;
+  animation: page-out 420ms ease both;
 }
 
 ::view-transition-new(root) {
-  animation: page-in 360ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: page-in 640ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 body {
@@ -578,8 +578,8 @@ em {
     var(--navy-deep);
   align-items: center;
   transition:
-    opacity 680ms cubic-bezier(0.4, 0, 0.2, 1),
-    visibility 680ms;
+    opacity 860ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 860ms;
 }
 
 .site-intro-gold {
@@ -4043,8 +4043,9 @@ html.motion-ready .reveal-target.is-visible {
   .page-title-line,
   .page-title-tail {
     display: block;
-    width: fit-content;
-    white-space: nowrap;
+    width: auto;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .display-break {
@@ -4057,8 +4058,9 @@ html.motion-ready .reveal-target.is-visible {
 
   .hero-line {
     display: block;
-    width: fit-content;
-    white-space: nowrap;
+    width: auto;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .hero-actions {
@@ -4258,6 +4260,17 @@ html.motion-ready .reveal-target.is-visible {
     gap: 12px 18px;
   }
 
+  .home-plan-list > a > *,
+  .plan-grid li > * {
+    min-width: 0;
+  }
+
+  .home-plan-list p,
+  .home-plan-list div strong,
+  .plan-grid li > span {
+    overflow-wrap: anywhere;
+  }
+
   .home-plan-list > a > p {
     grid-column: 1;
   }
@@ -4286,11 +4299,19 @@ html.motion-ready .reveal-target.is-visible {
   .comparison-list article {
     grid-template-columns: 1fr 1fr;
     gap: 14px;
+    min-width: 0;
   }
 
   .comparison-list h3 {
     grid-column: 1 / -1;
+    min-width: 0;
     padding-bottom: 8px;
+    overflow-wrap: anywhere;
+  }
+
+  .comparison-list p {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .comparison-list small {
@@ -4336,8 +4357,13 @@ html.motion-ready .reveal-target.is-visible {
   }
 
   .profile-facts div {
-    grid-template-columns: 90px 1fr;
+    grid-template-columns: 90px minmax(0, 1fr);
     gap: 18px;
+  }
+
+  .profile-facts dd {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .story-list article {
@@ -5825,9 +5851,9 @@ main h2 em::after {
 
 .intro-grid {
   transition:
-    opacity 760ms cubic-bezier(0.4, 0, 0.2, 1),
-    filter 760ms ease,
-    transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 900ms cubic-bezier(0.4, 0, 0.2, 1),
+    filter 900ms ease,
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .intro-logo-button {
@@ -5855,7 +5881,7 @@ main h2 em::after {
   opacity: 0;
   filter: contrast(1.08);
   transform: translateY(4px) scale(0.985);
-  animation: rixa-logo-arrive 760ms 60ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: rixa-logo-arrive 920ms 100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .intro-logo-image {
@@ -5872,25 +5898,25 @@ main h2 em::after {
 .intro-mask-cap {
   transform: scaleY(0.01);
   transform-origin: top;
-  animation: rixa-mask-open-y 900ms 120ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: rixa-mask-open-y 1050ms 160ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .intro-mask-tassel {
   transform: scaleY(0.01);
   transform-origin: top;
-  animation: rixa-mask-open-y 800ms 360ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: rixa-mask-open-y 920ms 450ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .intro-mask-body {
   transform: scaleX(0.01);
   transform-origin: left;
-  animation: rixa-mask-open-x 1180ms 440ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: rixa-mask-open-x 1320ms 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .intro-mask-word {
   transform: scaleY(0.01);
   transform-origin: bottom;
-  animation: rixa-mask-open-y 980ms 1080ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: rixa-mask-open-y 1100ms 1350ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .intro-logo-halo {
@@ -5904,7 +5930,7 @@ main h2 em::after {
   border-radius: 50%;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.4);
-  animation: rixa-halo-pulse 1480ms 620ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: rixa-halo-pulse 1680ms 760ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .intro-pen-trace {
@@ -5919,7 +5945,7 @@ main h2 em::after {
   box-shadow: 0 0 12px rgba(47, 124, 157, 0.28);
   transform: translate3d(0, -38px, 0) scaleY(0.2);
   transform-origin: top;
-  animation: rixa-pen-write 980ms 640ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: rixa-pen-write 1120ms 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes rixa-logo-arrive {
