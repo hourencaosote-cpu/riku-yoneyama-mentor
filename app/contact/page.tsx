@@ -113,7 +113,7 @@ export default function ContactPage() {
                 <div>
                   <dt>Phone</dt>
                   <dd>
-                    <a href="tel:+819012906147">090-1290-6147</a>
+                    <a href="tel:+61451919748">0451919748</a>
                   </dd>
                 </div>
                 <div>

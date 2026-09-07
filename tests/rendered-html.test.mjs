@@ -126,7 +126,7 @@ test("contact page exposes working contact links", async () => {
   const html = await response.text();
 
   assert.match(html, /href="mailto:yoneriku19@gmail\.com/);
-  assert.match(html, /href="tel:\+819012906147"/);
+  assert.match(html, /href="tel:\+61451919748"/);
   assert.match(html, /無料相談から始まる4ステップ|相談から始まる4ステップ/);
   assert.match(html, /NCEAとATARのどちらにも対応していますか/);
 });
