@@ -95,7 +95,7 @@ test("plans page renders the supplied pricing and course details", async () => {
   assert.match(html, /スタンダードコース/);
   assert.match(html, /18,000/);
   assert.match(html, /アドバンスコース/);
-  assert.match(html, /33,000/);
+  assert.match(html, /35,000/);
   assert.match(html, /週1回・60分/);
   assert.match(html, /週1回・120分/);
   assert.match(html, /チャット相談（回数制限なし/);
