@@ -29,7 +29,7 @@ export const plans = [
     id: "advanced",
     name: "Advanced",
     japaneseName: "アドバンスコース",
-    price: "33,000",
+    price: "35,000",
     cadence: "週1回・120分",
     lead: "学習計画・課題・振り返りまで、週単位で深く伴走する。",
     features: [
