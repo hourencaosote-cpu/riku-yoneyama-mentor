@@ -12,7 +12,7 @@ export const approvedConsultationAnswerGuide = {
   studyAbroadLife:
     "留学生活では、生活・時間管理・学習習慣・モチベーションを切り離さず、継続できる形を一緒に整理します。緊急性のある心身の相談は、学校や専門機関、信頼できる大人へ相談してください。",
   plans:
-    "スタンダードは月額18,000円・週1回60分、アドバンスは月額33,000円・週1回120分です。無料相談、個別プラン設計、1〜2週間の体験・確認を経てサポートを開始します。",
+    "スタンダードは月額18,000円・週1回60分、アドバンスは月額35,000円・週1回120分です。無料相談、個別プラン設計、1〜2週間の体験・確認を経てサポートを開始します。",
 } as const;
 
 export type ApprovedConsultationTopic = keyof typeof approvedConsultationAnswerGuide;
